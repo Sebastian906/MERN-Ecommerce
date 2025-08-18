@@ -9,12 +9,17 @@ import AdminDashboard from "./pages/admin/dashboard"
 import AdminProducts from "./pages/admin/products"
 import AdminOrders from "./pages/admin/orders"
 import AdminFeatures from "./pages/admin/features"
+import ShoppingLayout from "./components/shopping/layout"
+import NotFound from "./pages/not-found"
+import ShoppingAccount from "./pages/shopping/account"
+import ShoppingCheckout from "./pages/shopping/checkout"
+import ShoppingHome from "./pages/shopping/home"
+import ShoppingListing from "./pages/shopping/listing"
 
 function App() {
 
   return (
     <div className="flex flex-col overflow-hidden bg-white">
-      {/** Traer Componentes al archivo principal */}
       <Routes>
         <Route path="/autorizacion" element={<AuthLayout/>}>
           <Route path="iniciar-sesion" element={<AuthLogin/>}/>
@@ -26,6 +31,13 @@ function App() {
           <Route path="ordenes" element={<AdminOrders/>}/>
           <Route path="caracteristicas" element={<AdminFeatures/>}/>
         </Route>
+        <Route path="/tienda" element={<ShoppingLayout/>}>
+          <Route path="cuenta" element={<ShoppingAccount/>}/>
+          <Route path="caja" element={<ShoppingCheckout/>}/>
+          <Route path="inicio" element={<ShoppingHome/>}/>
+          <Route path="lista" element={<ShoppingListing/>}/>
+        </Route>
+        <Route path="*" element={<NotFound/>}/>
       </Routes>
     </div>
   )
