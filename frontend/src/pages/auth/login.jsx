@@ -4,9 +4,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const initialState = {
-    userName : '',
-    email : '',
-    password : '',
+    usuario : '',
+    correo : '',
+    contraseña : '',
 }
 
 function AuthLogin() {

@@ -18,14 +18,14 @@ import UnauthPage from "./pages/unauth-page"
 
 function App() {
 
-  const isAuthenticated = false;
-  const user = null;
+  const estaAutenticado = false;
+  const usuario = null;
 
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       <Routes>
         <Route path="/autorizacion" element={
-          <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+          <CheckAuth estaAutenticado={estaAutenticado} usuario={usuario}>
             <AuthLayout />
           </CheckAuth>
         }>
@@ -34,7 +34,7 @@ function App() {
         </Route>
 
         <Route path="/admin" element={
-          <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+          <CheckAuth estaAutenticado={estaAutenticado} usuario={usuario}>
             <AdminLayout />
           </CheckAuth>
         }>
@@ -45,7 +45,7 @@ function App() {
         </Route>
 
         <Route path="/tienda" element={
-          <CheckAuth isAuthenticated={isAuthenticated} user={user}>
+          <CheckAuth estaAutenticado={estaAutenticado} usuario={usuario}>
             <ShoppingLayout />
           </CheckAuth>
         }>
