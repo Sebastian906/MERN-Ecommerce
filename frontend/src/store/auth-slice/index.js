@@ -28,9 +28,10 @@ const authSlice = createSlice({
     extraReducers: (builder)=> {
         builder.addCase(registrarUsuario.pending, (state) => {
             state.estaCargando = true
+        // eslint-disable-next-line no-unused-vars
         }).addCase(registrarUsuario.fulfilled, (state, action) => {
             state.estaCargando = false;
-            state.usuario = action.payload;
+            state.usuario = null;
             state.estaAutenticado = false;
         // eslint-disable-next-line no-unused-vars
         }).addCase(registrarUsuario.rejected, (state, action) => {

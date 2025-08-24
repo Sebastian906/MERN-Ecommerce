@@ -1,7 +1,9 @@
 import CommonForm from "@/components/common/form";
 import { registerFormControls } from "@/config";
+import { registrarUsuario } from "@/store/auth-slice";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 const initialState = {
     usuario : '',
@@ -12,9 +14,14 @@ const initialState = {
 function AuthRegister() {
 
     const [formData, setFormData] = useState(initialState)
+    const ejecucion = useDispatch();
+    const navegar = useNavigate()
 
-    function onSubmit() {
-
+    function onSubmit(event) {
+        event.preventDefault();
+        ejecucion(registrarUsuario(formData)).then((data)=> {
+            if(data?.payload?.success) navegar('/autorizacion/iniciar-sesion')
+        })
     }
 
     console.log(formData);
