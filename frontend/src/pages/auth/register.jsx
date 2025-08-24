@@ -23,9 +23,11 @@ function AuthRegister() {
         event.preventDefault();
         ejecucion(registrarUsuario(formData)).then((data)=> {
             if(data?.payload?.success) {
-                toast("Registro exitoso")
+                toast.success("Registro exitoso")
                 navegar('/autorizacion/iniciar-sesion')
-            } 
+            } else {
+                toast.error("Este correo ya está registrado. Por favor ingrese otro correo.")
+            }
         })
     }
 

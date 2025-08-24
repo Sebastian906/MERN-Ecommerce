@@ -1,0 +1,37 @@
+/* Estilos personalizados para toasts de Sonner */
+
+/* Toast de error - Fondo rojo con texto blanco */
+[data-sonner-toast][data-type="error"] {
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+  border-color: #dc2626 !important;
+}
+
+/* Toast de éxito - Fondo verde con texto blanco */
+[data-sonner-toast][data-type="success"] {
+  background-color: #16a34a !important;
+  color: #ffffff !important;
+  border-color: #16a34a !important;
+}
+
+/* Toast de advertencia - Fondo amarillo con texto blanco */
+[data-sonner-toast][data-type="warning"] {
+  background-color: #eab308 !important;
+  color: #ffffff !important;
+  border-color: #eab308 !important;
+}
+
+/* Toast de info - Fondo azul con texto blanco */
+[data-sonner-toast][data-type="info"] {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+  border-color: #2563eb !important;
+}
+
+/* Asegurar que el texto del icono también sea blanco */
+[data-sonner-toast][data-type="error"] svg,
+[data-sonner-toast][data-type="success"] svg,
+[data-sonner-toast][data-type="warning"] svg,
+[data-sonner-toast][data-type="info"] svg {
+  color: #ffffff !important;
+}
