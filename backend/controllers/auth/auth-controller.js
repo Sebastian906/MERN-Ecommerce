@@ -3,13 +3,20 @@ const jwt = require('jsonwebtoken')
 const Usuario = require('../../models/User')
 
 // registro
-const registroUsuario = async(req, res) => {
+const registroUsuario = async (req, res) => {
     const { usuario, correo, contraseña } = req.body;
     try {
+
+        const verificarUsuario = await Usuario.findOne({ correo });
+        if (verificarUsuario) return res.json({
+            success: false,
+            message: 'Este correo ya está registrado. Por favor ingrese otro correo.'
+        })
+
         const hashContraseña = await bcrypt.hash(contraseña, 12);
         const nuevoUsuario = new Usuario({
-            usuario, 
-            correo, 
+            usuario,
+            correo,
             contraseña: hashContraseña,
         })
 
@@ -29,10 +36,37 @@ const registroUsuario = async(req, res) => {
 }
 
 // inicio de sesión
-const login = async(req, res) => {
+const loginUsuario = async (req, res) => {
     const { correo, contraseña } = req.body;
     try {
-        
+        const verificarUsuario = await Usuario.findOne({ correo });
+        if (!verificarUsuario) return res.json({
+            success: false,
+            message: "El usuario no existe. Por favor registrese"
+        });
+
+        const verificarContraseña = await bcrypt.compare(contraseña, verificarUsuario.contraseña);
+        if (!verificarContraseña) return res.json({
+            success: false,
+            message: "La contraseña es incorrecta."
+        });
+
+        const token = jwt.sign({
+            id: verificarUsuario._id,
+            rol: verificarUsuario.rol,
+            correo: verificarUsuario.correo
+        }, 'CLIENT_SECRET_KEY', { expiresIn: '60m' })
+
+        res.cookie('token', token, { httpOnly: true, secure: false }).json({
+            success: true,
+            message: "Se inicio la sesión correctamente.",
+            usuario: {
+                correo: verificarUsuario.correo,
+                rol: verificarUsuario.rol,
+                id: verificarUsuario._id
+            }
+        })
+
     } catch (e) {
         console.log(e);
         res.status(500).json({
@@ -45,4 +79,4 @@ const login = async(req, res) => {
 
 // middleware de autenticación
 
-module.exports = { registroUsuario }
+module.exports = { registroUsuario, loginUsuario }
