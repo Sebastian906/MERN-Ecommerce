@@ -4,6 +4,7 @@ import { registrarUsuario } from "@/store/auth-slice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner"
 
 const initialState = {
     usuario : '',
@@ -15,12 +16,16 @@ function AuthRegister() {
 
     const [formData, setFormData] = useState(initialState)
     const ejecucion = useDispatch();
-    const navegar = useNavigate()
+    const navegar = useNavigate();
+    //const toast = useSonner();
 
     function onSubmit(event) {
         event.preventDefault();
         ejecucion(registrarUsuario(formData)).then((data)=> {
-            if(data?.payload?.success) navegar('/autorizacion/iniciar-sesion')
+            if(data?.payload?.success) {
+                toast("Registro exitoso")
+                navegar('/autorizacion/iniciar-sesion')
+            } 
         })
     }
 
