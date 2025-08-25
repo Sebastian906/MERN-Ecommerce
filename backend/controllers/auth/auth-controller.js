@@ -85,5 +85,23 @@ const logoutUsuario = async (req, res) => {
 }
 
 // middleware de autenticación
+const authMiddleware = async (req, res, next) => {
+    const token = res.cookies.token;
+    if (!token) return res.status(401).json({
+        success: false,
+        message: 'Usuario no autorizado!'
+    })
 
-module.exports = { registroUsuario, loginUsuario, logoutUsuario }
+    try {
+        const decodificado = jwt.verify(token, 'CLIENT_SECRET_KEY');
+        req.user = decodificado;
+        next()
+    } catch (error) {
+        res.status(401).json({
+            success: false,
+            message: 'Usuario no autorizado!',
+        })
+    }
+}
+
+module.exports = { registroUsuario, loginUsuario, logoutUsuario, authMiddleware }
