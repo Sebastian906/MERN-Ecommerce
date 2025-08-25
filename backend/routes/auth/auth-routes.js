@@ -4,6 +4,6 @@ const { registroUsuario, loginUsuario } = require('../../controllers/auth/auth-c
 const router = express.Router()
 
 router.post('/registro', registroUsuario);
-router.post('/login', loginUsuario);
+router.post('/iniciar-sesion', loginUsuario);
 
 module.exports = router;
