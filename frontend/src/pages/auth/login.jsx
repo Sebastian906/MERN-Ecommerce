@@ -1,7 +1,10 @@
 import CommonForm from "@/components/common/form";
 import { loginrFormControls } from "@/config";
+import { loginUsuario } from "@/store/auth-slice";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 const initialState = {
     usuario : '',
@@ -12,9 +15,17 @@ const initialState = {
 function AuthLogin() {
 
     const [formData, setFormData] = useState(initialState)
+    const ejecucion = useDispatch();
     
-    function onSubmit() {
-
+    function onSubmit(event) {
+        event.preventDefault();
+        ejecucion(loginUsuario(formData)).then((data) => {
+            if(data?.payload?.success) {
+                toast.success("Se inicio la sesión correctamente.")
+            } else {
+                toast.error(data?.payload?.message || "Ha ocurrido un error")
+            }
+        });
     }
 
     return (

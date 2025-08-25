@@ -21,7 +21,7 @@ function CheckAuth({ estaAutenticado, usuario, children }) {
             location.pathname.includes('/registro')
         )
     ) {
-        if (usuario?.role === 'admin') {
+        if (usuario?.rol === 'admin') {
             return <Navigate to="/admin/panel"/>
         } else {
             return <Navigate to="/tienda/inicio"/>
@@ -30,7 +30,7 @@ function CheckAuth({ estaAutenticado, usuario, children }) {
 
     if (
         estaAutenticado &&
-        usuario?.role !== 'admin' &&
+        usuario?.rol !== 'admin' &&
         location.pathname.includes('admin')
     ) {
         return <Navigate to='/no-autorizado/'/> 
@@ -38,7 +38,7 @@ function CheckAuth({ estaAutenticado, usuario, children }) {
 
     if (
         estaAutenticado &&
-        usuario?.role === 'admin' &&
+        usuario?.rol === 'admin' &&
         location.pathname.includes('tienda')
     ) {
         return <Navigate to="/admin/panel"/>

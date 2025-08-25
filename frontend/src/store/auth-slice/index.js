@@ -50,9 +50,10 @@ const authSlice = createSlice({
         }).addCase(loginUsuario.pending, (state) => {
             state.estaCargando = true
         }).addCase(loginUsuario.fulfilled, (state, action) => {
+            console.log(action);
             state.estaCargando = false;
-            state.usuario = action.payload;
-            state.estaAutenticado = true;
+            state.usuario = action.payload.success ? action.payload.usuario : null;
+            state.estaAutenticado = action.payload.success;
         }).addCase(loginUsuario.rejected, (state, action) => {
             state.estaCargando = false;
             state.usuario = null;
