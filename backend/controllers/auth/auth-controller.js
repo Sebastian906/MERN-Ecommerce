@@ -94,7 +94,7 @@ const authMiddleware = async (req, res, next) => {
 
     try {
         const decodificado = jwt.verify(token, 'CLIENT_SECRET_KEY');
-        req.user = decodificado;
+        req.usuario = decodificado;
         next()
     } catch (error) {
         res.status(401).json({
