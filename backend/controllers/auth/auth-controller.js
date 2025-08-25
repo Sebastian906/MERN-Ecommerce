@@ -75,8 +75,15 @@ const loginUsuario = async (req, res) => {
         })
     }
 }
+
 // cierre de sesión
+const logoutUsuario = async (req, res) => {
+    res.limpiarCookie('token').json({
+        success: true,
+        message: 'Se ha cerrado la sesión.'
+    })
+}
 
 // middleware de autenticación
 
-module.exports = { registroUsuario, loginUsuario }
+module.exports = { registroUsuario, loginUsuario, logoutUsuario }
