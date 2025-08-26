@@ -15,11 +15,18 @@ import ShoppingHome from "./pages/shopping/home"
 import ShoppingListing from "./pages/shopping/listing"
 import CheckAuth from "./components/common/check-auth"
 import UnauthPage from "./pages/unauth-page"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
+import { verificarAutenticacion } from "./store/auth-slice"
 
 function App() {
 
   const { usuario, estaAutenticado } = useSelector(state => state.auth)
+  const ejecucion = useDispatch();
+
+  useEffect(() => {
+    ejecucion(verificarAutenticacion());
+  },[ejecucion]);
 
   return (
     <div className="flex flex-col overflow-hidden bg-white">
