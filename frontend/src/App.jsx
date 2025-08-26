@@ -18,6 +18,7 @@ import UnauthPage from "./pages/unauth-page"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { verificarAutenticacion } from "./store/auth-slice"
+import { Skeleton } from "@/components/ui/skeleton"
 
 function App() {
 
@@ -28,7 +29,7 @@ function App() {
     ejecucion(verificarAutenticacion());
   },[ejecucion]);
 
-  if (estaCargando) return <div>Cargando...</div>;
+  if (estaCargando) return <Skeleton className="h-[600px] w-[800px]"/>
 
   console.log(estaCargando, usuario);
 
