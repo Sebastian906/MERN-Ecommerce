@@ -21,12 +21,16 @@ import { verificarAutenticacion } from "./store/auth-slice"
 
 function App() {
 
-  const { usuario, estaAutenticado } = useSelector(state => state.auth)
+  const { usuario, estaAutenticado, estaCargando } = useSelector(state => state.auth)
   const ejecucion = useDispatch();
 
   useEffect(() => {
     ejecucion(verificarAutenticacion());
   },[ejecucion]);
+
+  if (estaCargando) return <div>Cargando...</div>;
+
+  console.log(estaCargando, usuario);
 
   return (
     <div className="flex flex-col overflow-hidden bg-white">

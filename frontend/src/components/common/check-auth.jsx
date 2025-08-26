@@ -4,6 +4,8 @@ function CheckAuth({ estaAutenticado, usuario, children }) {
 
     const location = useLocation();
 
+    console.log(location.pathname, estaAutenticado);
+
     if (
         !estaAutenticado && 
         !(
@@ -33,7 +35,7 @@ function CheckAuth({ estaAutenticado, usuario, children }) {
         usuario?.rol !== 'admin' &&
         location.pathname.includes('admin')
     ) {
-        return <Navigate to='/no-autorizado/'/> 
+        return <Navigate to='/sin-autorizar/'/> 
     }
 
     if (
