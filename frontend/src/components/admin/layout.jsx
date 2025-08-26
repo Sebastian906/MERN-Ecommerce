@@ -10,7 +10,7 @@ function AdminLayout() {
             <div className="flex flex-1 flex-col">
                 {/** Cabecera de administrador */}
                 <AdminHeader/>
-                <main className="flex flex-1 bg-muted/40 p-4 md:p-6">
+                <main className="flex flex-1 bg-blue-400 p-4 md:p-6">
                     <Outlet/>
                 </main>
             </div>
