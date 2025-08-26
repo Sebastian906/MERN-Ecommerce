@@ -11,8 +11,8 @@ router.get('/verificar-autenticacion', authMiddleware, (req, res) => {
     res.status(200).json({
         success: true,
         message: 'Usuario Autenticado!',
-        usuario
-    })
-})
+        usuario,
+    });
+});
 
 module.exports = router;

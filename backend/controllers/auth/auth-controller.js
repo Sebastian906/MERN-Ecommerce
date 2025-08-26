@@ -78,7 +78,7 @@ const loginUsuario = async (req, res) => {
 
 // cierre de sesión
 const logoutUsuario = async (req, res) => {
-    res.limpiarCookie('token').json({
+    res.clearCookie('token').json({
         success: true,
         message: 'Se ha cerrado la sesión.'
     })
@@ -86,16 +86,16 @@ const logoutUsuario = async (req, res) => {
 
 // middleware de autenticación
 const authMiddleware = async (req, res, next) => {
-    const token = res.cookies.token;
+    const token = req.cookies.token;
     if (!token) return res.status(401).json({
         success: false,
         message: 'Usuario no autorizado!'
     })
 
     try {
-        const decodificado = jwt.verify(token, 'CLIENT_SECRET_KEY');
-        req.usuario = decodificado;
-        next()
+        const decoded = jwt.verify(token, 'CLIENT_SECRET_KEY');
+        req.usuario = decoded;
+        next();
     } catch (error) {
         res.status(401).json({
             success: false,
