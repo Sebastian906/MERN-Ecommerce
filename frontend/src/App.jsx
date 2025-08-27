@@ -29,7 +29,7 @@ function App() {
     ejecucion(verificarAutenticacion());
   },[ejecucion]);
 
-  if (estaCargando) return <Skeleton className="h-[600px] w-[800px]"/>
+  if (estaCargando) return <Skeleton className="w-[800] bg-black h-[600px]"/>
 
   console.log(estaCargando, usuario);
 

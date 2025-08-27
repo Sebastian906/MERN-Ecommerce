@@ -1,5 +1,5 @@
 import CommonForm from "@/components/common/form";
-import { loginrFormControls } from "@/config";
+import { loginFormControls } from "@/config";
 import { loginUsuario } from "@/store/auth-slice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -45,7 +45,7 @@ function AuthLogin() {
                 </p>
             </div>
             <CommonForm
-                formControls={loginrFormControls}
+                formControls={loginFormControls}
                 buttonText={'Iniciar Sesión'}
                 formData={formData}
                 setFormData={setFormData}

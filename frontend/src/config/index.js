@@ -22,7 +22,7 @@ export const registerFormControls = [
     },
 ]
 
-export const loginrFormControls = [
+export const loginFormControls = [
     {
         name: 'correo',
         label: 'Correo',
