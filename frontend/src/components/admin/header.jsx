@@ -1,10 +1,10 @@
 import { Button } from "../ui/button";
 import { LuAlignJustify, LuLogOut } from "react-icons/lu";
 
-function AdminHeader() {
+function AdminHeader({ setOpen }) {
     return (
         <header className="flex items-center justify-between px-4 py-3 bg-background border-b">
-            <Button className='lg:hidden sm:block bg-slate-900 hover:bg-slate-700 text-white' variant="ghost">
+            <Button onClick={() => setOpen(true)} className='lg:hidden sm:block bg-slate-900 hover:bg-slate-700 text-white' variant="ghost">
                 <LuAlignJustify />
                 <span className="sr-only">Menú alterno</span>
             </Button>
