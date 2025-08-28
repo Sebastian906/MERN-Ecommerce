@@ -37,13 +37,13 @@ function AdminProducts() {
                 setOpenCreateProductsDialog(false);
             }}
             >
-                <SheetContent side="right" className="overflow-auto [&>button]:text-white [&>button]:hover:text-gray-300">
-                    <SheetHeader>
-                        <SheetTitle>
+                <SheetContent side="right" className="overflow-auto px-6 [&>button]:text-white [&>button]:hover:text-gray-300 [&_.select-trigger]:!bg-white [&_.select-trigger]:!border-gray-300">
+                    <SheetHeader className="px-0 pb-6">
+                        <SheetTitle className="text-left">
                             Agregar Nuevo Producto
                         </SheetTitle>
                     </SheetHeader>
-                    <div className="py-6">
+                    <div className="pb-6">
                         <CommonForm
                             onSubmit={onSubmit}
                             formData={formData}

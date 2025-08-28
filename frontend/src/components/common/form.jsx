@@ -34,7 +34,8 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText 
                         ...formData,
                         [getControlItem.name] : value
                     })} value={value}>
-                        <SelectTrigger className="w-full">
+                        <SelectTrigger className="w-full select-trigger !bg-white !border-gray-300 hover:!border-gray-400 focus:!border-blue-500 text-black"
+                            style={{backgroundColor: 'white !important'}}>
                             <SelectValue placeholder={getControlItem.placeholder}/>
                         </SelectTrigger>
                         <SelectContent>
@@ -83,18 +84,18 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText 
 
     return (
         <form onSubmit={onSubmit}>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-4">
                 {
                     formControls.map(
-                        controlItem => <div className="grid w-full gap-1.5" key={controlItem.name}>
-                            <Label className="mb-1">{controlItem.label}</Label>
+                        controlItem => <div className="grid w-full gap-2" key={controlItem.name}>
+                            <Label className="mb-1 font-medium">{controlItem.label}</Label>
                             {
                                 renderInputsByComponentType(controlItem)
                             }
                         </div>)
                 }
             </div>
-            <Button type="submit" className='mt-2 w-full'>
+            <Button type="submit" className='mt-6 w-full'>
                 {
                     buttonText || 
                     'Entregar'
