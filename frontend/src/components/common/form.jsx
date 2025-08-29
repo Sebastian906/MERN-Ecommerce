@@ -34,9 +34,9 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText 
                         ...formData,
                         [getControlItem.name] : value
                     })} value={value}>
-                        <SelectTrigger className="w-full select-trigger !bg-white !border-gray-300 hover:!border-gray-400 focus:!border-blue-500 text-black"
-                            style={{backgroundColor: 'white !important'}}>
-                            <SelectValue placeholder={getControlItem.placeholder}/>
+                        <SelectTrigger className="w-full select-trigger bg-white border-gray-300 hover:border-gray-400 focus:border-blue-500 text-gray-700 text-sm"
+                            style={{backgroundColor: 'white', fontSize: '14px'}}>
+                            <SelectValue placeholder={getControlItem.placeholder} className="text-sm"/>
                         </SelectTrigger>
                         <SelectContent>
                             {
@@ -53,7 +53,7 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText 
                 );
                 break;
 
-            case 'textare':
+            case 'textarea':
                 element = (
                     <Textarea
                         name={getControlItem.name}
