@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const authRouter = require('./routes/auth/auth-routes')
+const adminProductsRouter = require('./routes/admin/products-routes')
 require('dotenv').config()
 
 mongoose
@@ -30,6 +31,7 @@ app.use(
 
 app.use(cookieParser());
 app.use(express.json());
-app.use('/api/autorizacion', authRouter)
+app.use('/api/autorizacion', authRouter);
+app.use('/api/admin/productos', adminProductsRouter);
 
 app.listen(PORT, () => console.log(`Servidor cargando en puerto ${PORT}`))
