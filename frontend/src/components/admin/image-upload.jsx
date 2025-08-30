@@ -1,14 +1,15 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { LuCloudUpload, LuFile, LuX } from "react-icons/lu";
 import { Button } from "../ui/button";
+import axios from "axios";
 
 function ProductImageUpload({
     imageFile,
     setImageFile,
     // uploadedImageUrl, 
-    // setUploadedImageUrl,
+    setUploadedImageUrl,
 }) {
 
     const inputRef = useRef(null);
@@ -35,6 +36,19 @@ function ProductImageUpload({
             inputRef.current.value = "";
         }
     }
+
+    async function uploadImageToCloudinary() {
+        const data = new FormData();
+        data.append('archivo', imageFile)
+        const response = await axios.post('http://localhost:5000/api/admin/productos/subir-imagen', data)
+        console.log(response, 'response');
+        
+        if(response?.data?.success) setUploadedImageUrl(response.data.result.url)
+    }
+
+    useEffect(()=>{
+        if(imageFile !== null) uploadImageToCloudinary()
+    },[imageFile]) 
 
     return (
         <div className="w-full max-w-md mx-auto mt-4">
