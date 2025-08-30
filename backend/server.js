@@ -1,10 +1,10 @@
+require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const authRouter = require('./routes/auth/auth-routes')
 const adminProductsRouter = require('./routes/admin/products-routes')
-require('dotenv').config()
 
 mongoose
     .connect(process.env.MONGODB_CONNECTION)
