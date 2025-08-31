@@ -1,5 +1,5 @@
 const { imageUploadUtils } = require("../../helpers/cloudinary");
-const Product = require("../../models/Product");
+const Producto = require("../../models/Product");
 
 const manejarCargaImagen = async (req, res) => {
     try {
@@ -32,7 +32,7 @@ const agregarProducto = async (req, res) => {
             precioVenta,
             existenciaTotal,
         } = req.body;
-        const nuevoProducto = new Product({
+        const nuevoProducto = new Producto({
             imagen,
             titulo,
             descripcion,
@@ -59,7 +59,11 @@ const agregarProducto = async (req, res) => {
 // listar todos los productos
 const listarProductos = async (req, res) => {
     try {
-
+        const listaDeProductos = await Producto.find({});
+        res.status(200).json({
+            success: true,
+            data: listaDeProductos
+        })
     } catch (e) {
         console.log(e);
         res.status(500).json({
