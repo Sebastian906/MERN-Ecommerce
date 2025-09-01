@@ -4,10 +4,12 @@ import { Label } from "../ui/label";
 import { LuCloudUpload, LuFile, LuX } from "react-icons/lu";
 import { Button } from "../ui/button";
 import axios from "axios";
+import { Skeleton } from "../ui/skeleton";
 
 function ProductImageUpload({
     imageFile,
     setImageFile,
+    imageLoadingState,
     // uploadedImageUrl, 
     setUploadedImageUrl,
     setImageLoadingState,
@@ -77,6 +79,9 @@ function ProductImageUpload({
                             </span>
                         </Label>
                     ) : (
+                        imageLoadingState ? (
+                        <Skeleton className="h-10 bg-gray-100"/>
+                    ) : (
                         <div className="flex items-center justify-between">
                             <div className="flex items-center">
                                 <LuFile className="w-8 text-primary mr-2 h-8" />
@@ -94,6 +99,7 @@ function ProductImageUpload({
                                 <span className="sr-only">Remover Archivo</span>
                             </Button>
                         </div>
+                        )
                     )
                 }
             </div>
