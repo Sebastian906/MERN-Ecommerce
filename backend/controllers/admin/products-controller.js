@@ -120,6 +120,18 @@ const editarProducto = async (req, res) => {
 // borrar un producto
 const borrarProducto = async (req, res) => {
     try {
+        const { id } = req.params;
+        const producto = await Producto.findByIdAndUpdate(id);
+
+        if (!producto) return res.status(404).json({
+            success: false,
+            message: 'Producto no encontrado',
+        });
+
+        res.status(200).json({
+            success: true,
+            message: 'Producto eliminado correctamente',
+        });
 
     } catch (e) {
         console.log(e);
