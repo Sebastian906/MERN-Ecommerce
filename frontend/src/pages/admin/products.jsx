@@ -3,9 +3,10 @@ import CommonForm from "@/components/common/form";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { addProductFormElements } from "@/config";
-import { listarTodosLosProductos } from "@/store/admin/products-slice";
+import { agregarNuevoProducto, listarTodosLosProductos } from "@/store/admin/products-slice";
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
 
 const initialFormData = {
     imagen: null,
@@ -25,18 +26,30 @@ function AdminProducts() {
     const [imageFile, setImageFile] = useState(null);
     const [uploadedImageUrl, setUploadedImageUrl] = useState('');
     const [imageLoadingState, setImageLoadingState] = useState(false);
-    const { productList } = useSelector(state=>state.adminProductos)
+    const { productList } = useSelector(state => state.adminProductos)
     const ejecucion = useDispatch();
 
     function onSubmit(event) {
         event.preventDefault();
+        ejecucion(agregarNuevoProducto({
+            ...formData,
+            imagen: uploadedImageUrl
+        })).then((data) => {
+            if (data?.payload?.success) {
+                ejecucion(listarTodosLosProductos())
+                setOpenCreateProductsDialog(false)
+                setImageFile(null);
+                setFormData(initialFormData);
+                toast.success("Producto agregado correctamente.")
+            }
+        });
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         ejecucion(listarTodosLosProductos())
-    },[ejecucion])
+    }, [ejecucion])
 
-    console.log(productList, "productList");
+    console.log(productList, uploadedImageUrl, "productList");
 
     return (
         <Fragment>
@@ -56,10 +69,10 @@ function AdminProducts() {
                             Agregar Nuevo Producto
                         </SheetTitle>
                     </SheetHeader>
-                    <ProductImageUpload 
-                        imageFile={imageFile} 
-                        setImageFile={setImageFile} 
-                        uploadedImageUrl={uploadedImageUrl} 
+                    <ProductImageUpload
+                        imageFile={imageFile}
+                        setImageFile={setImageFile}
+                        uploadedImageUrl={uploadedImageUrl}
                         setUploadedImageUrl={setUploadedImageUrl}
                         setImageLoadingState={setImageLoadingState}
                         imageLoadingState={imageLoadingState}
