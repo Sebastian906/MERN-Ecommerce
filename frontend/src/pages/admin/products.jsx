@@ -3,7 +3,9 @@ import CommonForm from "@/components/common/form";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { addProductFormElements } from "@/config";
-import { Fragment, useState } from "react";
+import { listarTodosLosProductos } from "@/store/admin/products-slice";
+import { Fragment, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const initialFormData = {
     imagen: null,
@@ -23,12 +25,18 @@ function AdminProducts() {
     const [imageFile, setImageFile] = useState(null);
     const [uploadedImageUrl, setUploadedImageUrl] = useState('');
     const [imageLoadingState, setImageLoadingState] = useState(false);
+    const { productList } = useSelector(state=>state.adminProductos)
+    const ejecucion = useDispatch();
 
-    function onSubmit() {
-
+    function onSubmit(event) {
+        event.preventDefault();
     }
 
-    console.log(formData, "formData");
+    useEffect(()=>{
+        ejecucion(listarTodosLosProductos())
+    },[ejecucion])
+
+    console.log(productList, "productList");
 
     return (
         <Fragment>
