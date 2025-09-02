@@ -14,7 +14,7 @@ const router = express.Router();
 
 router.post('/subir-imagen', upload.single('archivo'), manejarCargaImagen);
 router.post('/agregar', agregarProducto)
-router.get('/lista', listarProductos)
+router.get('/listar', listarProductos)
 router.put('/editar/:id', editarProducto)
 router.delete('/borrar/:id', borrarProducto)
 
