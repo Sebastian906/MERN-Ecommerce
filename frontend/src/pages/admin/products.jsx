@@ -51,7 +51,7 @@ function AdminProducts() {
         ejecucion(listarTodosLosProductos())
     }, [ejecucion])
 
-    console.log(productList, uploadedImageUrl, "productList");
+    console.log(formData, "productList");
 
     return (
         <Fragment>
@@ -64,19 +64,30 @@ function AdminProducts() {
                 {
                     productList && productList.length > 0 ?
                         productList.map(productItem => (
-                            <AdminProductTile setFormData={setFormData} setOpenCreateProductsDialog={setOpenCreateProductsDialog} setCurrentEditedId={setCurrentEditedId} producto={productItem} />
+                            <AdminProductTile 
+                                key={productItem._id}
+                                setFormData={setFormData} 
+                                setOpenCreateProductsDialog={setOpenCreateProductsDialog} 
+                                setCurrentEditedId={setCurrentEditedId} 
+                                producto={productItem} 
+                            />
                         )) 
                     : null
                 }
             </div>
             <Sheet open={openCreateProductsDialog} onOpenChange={() => {
                 setOpenCreateProductsDialog(false);
+                setCurrentEditedId(null);
+                setFormData(initialFormData);
             }}
             >
                 <SheetContent side="right" className="overflow-auto px-6 [&>button]:text-white [&>button]:hover:text-gray-300 [&_.select-trigger]:!bg-white [&_.select-trigger]:!border-gray-300">
                     <SheetHeader className="px-0 pb-6">
                         <SheetTitle className="text-left">
-                            Agregar Nuevo Producto
+                            {
+                                currentEditedId !== null ?
+                                'Editar Producto' : 'Agregar Nuevo Producto'
+                            }
                         </SheetTitle>
                     </SheetHeader>
                     <ProductImageUpload
@@ -93,7 +104,7 @@ function AdminProducts() {
                             onSubmit={onSubmit}
                             formData={formData}
                             setFormData={setFormData}
-                            buttonText='Agregar'
+                            buttonText={currentEditedId !== null ? 'Editar' : 'Agregar'}
                             formControls={addProductFormElements}
                         />
                     </div>
