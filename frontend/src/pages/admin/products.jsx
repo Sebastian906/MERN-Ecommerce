@@ -27,6 +27,7 @@ function AdminProducts() {
     const [imageFile, setImageFile] = useState(null);
     const [uploadedImageUrl, setUploadedImageUrl] = useState('');
     const [imageLoadingState, setImageLoadingState] = useState(false);
+    const [currentEditedId, setCurrentEditedId] = useState(null)
     const { productList } = useSelector(state => state.adminProductos)
     const ejecucion = useDispatch();
 
@@ -62,7 +63,10 @@ function AdminProducts() {
             <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
                 {
                     productList && productList.length > 0 ?
-                        productList.map(productItem => <AdminProductTile producto={productItem} />) : null
+                        productList.map(productItem => (
+                            <AdminProductTile setFormData={setFormData} setOpenCreateProductsDialog={setOpenCreateProductsDialog} setCurrentEditedId={setCurrentEditedId} producto={productItem} />
+                        )) 
+                    : null
                 }
             </div>
             <Sheet open={openCreateProductsDialog} onOpenChange={() => {
@@ -82,6 +86,7 @@ function AdminProducts() {
                         setUploadedImageUrl={setUploadedImageUrl}
                         setImageLoadingState={setImageLoadingState}
                         imageLoadingState={imageLoadingState}
+                        isEditMode={currentEditedId !== null}
                     />
                     <div className="py-6">
                         <CommonForm
