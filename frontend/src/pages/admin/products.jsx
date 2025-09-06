@@ -4,7 +4,7 @@ import CommonForm from "@/components/common/form";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { addProductFormElements } from "@/config";
-import { agregarNuevoProducto, listarTodosLosProductos } from "@/store/admin/products-slice";
+import { agregarNuevoProducto, editarProducto, listarTodosLosProductos } from "@/store/admin/products-slice";
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
@@ -33,18 +33,30 @@ function AdminProducts() {
 
     function onSubmit(event) {
         event.preventDefault();
-        ejecucion(agregarNuevoProducto({
-            ...formData,
-            imagen: uploadedImageUrl
-        })).then((data) => {
-            if (data?.payload?.success) {
-                ejecucion(listarTodosLosProductos())
-                setOpenCreateProductsDialog(false)
-                setImageFile(null);
-                setFormData(initialFormData);
-                toast.success("Producto agregado correctamente.")
-            }
-        });
+        currentEditedId !== null ?
+            ejecucion(editarProducto({
+                id: currentEditedId, formData
+            })).then((data) => {
+                console.log(data, "editar");
+                if (data?.payload?.success) {
+                    ejecucion(listarTodosLosProductos());
+                    setFormData(initialFormData)
+                    setOpenCreateProductsDialog(false)
+                    setCurrentEditedId(null)
+                }
+            }) :
+            ejecucion(agregarNuevoProducto({
+                ...formData,
+                imagen: uploadedImageUrl
+            })).then((data) => {
+                if (data?.payload?.success) {
+                    ejecucion(listarTodosLosProductos());
+                    setOpenCreateProductsDialog(false)
+                    setImageFile(null);
+                    setFormData(initialFormData);
+                    toast.success("Producto agregado correctamente.")
+                }
+            });
     }
 
     useEffect(() => {
@@ -64,15 +76,15 @@ function AdminProducts() {
                 {
                     productList && productList.length > 0 ?
                         productList.map(productItem => (
-                            <AdminProductTile 
+                            <AdminProductTile
                                 key={productItem._id}
-                                setFormData={setFormData} 
-                                setOpenCreateProductsDialog={setOpenCreateProductsDialog} 
-                                setCurrentEditedId={setCurrentEditedId} 
-                                producto={productItem} 
+                                setFormData={setFormData}
+                                setOpenCreateProductsDialog={setOpenCreateProductsDialog}
+                                setCurrentEditedId={setCurrentEditedId}
+                                producto={productItem}
                             />
-                        )) 
-                    : null
+                        ))
+                        : null
                 }
             </div>
             <Sheet open={openCreateProductsDialog} onOpenChange={() => {
@@ -86,7 +98,7 @@ function AdminProducts() {
                         <SheetTitle className="text-left">
                             {
                                 currentEditedId !== null ?
-                                'Editar Producto' : 'Agregar Nuevo Producto'
+                                    'Editar Producto' : 'Agregar Nuevo Producto'
                             }
                         </SheetTitle>
                     </SheetHeader>

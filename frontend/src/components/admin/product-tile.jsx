@@ -42,8 +42,8 @@ function AdminProductTile({ producto, setFormData, setOpenCreateProductsDialog, 
                     setOpenCreateProductsDialog(true);
                     setCurrentEditedId(producto?._id);
                     setFormData(producto);
-                }} size="sm" className="!bg-teal-600 hover:!bg-teal-700 !text-neutral-100 !px-5">Editar</Button>
-                <Button size="sm" className="!bg-rose-600 hover:!bg-rose-700 !text-neutral-100 !px-5">Borrar</Button>
+                }} size="sm" className="!bg-purple-500 hover:!bg-purple-600 !text-neutral-100 !px-5">Editar</Button>
+                <Button size="sm" className="!bg-pink-500 hover:!bg-pink-600 !text-neutral-100 !px-5">Borrar</Button>
             </CardFooter>
         </Card>
     );
