@@ -4,7 +4,7 @@ import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Textarea } from "../ui/textarea";
 
-function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText }) {
+function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText, isBtnDisabled }) {
 
     function renderInputsByComponentType(getControlItem) {
         let element = null;
@@ -22,7 +22,7 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText 
                         value={value}
                         onChange={event => setFormData({
                             ...formData,
-                            [getControlItem.name] : event.target.value,
+                            [getControlItem.name]: event.target.value,
                         })}
                     />
                 );
@@ -30,23 +30,23 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText 
 
             case 'select':
                 element = (
-                    <Select onValueChange={(value)=> setFormData({
+                    <Select onValueChange={(value) => setFormData({
                         ...formData,
-                        [getControlItem.name] : value
+                        [getControlItem.name]: value
                     })} value={value}>
                         <SelectTrigger className="w-full select-trigger bg-white border-gray-300 hover:border-gray-400 focus:border-blue-500 text-gray-700 text-sm"
-                            style={{backgroundColor: 'white', fontSize: '14px'}}>
-                            <SelectValue placeholder={getControlItem.placeholder} className="text-sm"/>
+                            style={{ backgroundColor: 'white', fontSize: '14px' }}>
+                            <SelectValue placeholder={getControlItem.placeholder} className="text-sm" />
                         </SelectTrigger>
                         <SelectContent>
                             {
-                                getControlItem.options && 
-                                getControlItem?.options.length > 0 ? 
-                                getControlItem.options.map(optionItem => 
-                                    <SelectItem key={optionItem.id} value={optionItem.id}>
-                                        {optionItem.label}
-                                    </SelectItem>
-                                ) : null
+                                getControlItem.options &&
+                                    getControlItem?.options.length > 0 ?
+                                    getControlItem.options.map(optionItem =>
+                                        <SelectItem key={optionItem.id} value={optionItem.id}>
+                                            {optionItem.label}
+                                        </SelectItem>
+                                    ) : null
                             }
                         </SelectContent>
                     </Select>
@@ -62,7 +62,7 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText 
                         value={value}
                         onChange={event => setFormData({
                             ...formData,
-                            [getControlItem.name] : event.target.value,
+                            [getControlItem.name]: event.target.value,
                         })}
                     />
                 );
@@ -95,9 +95,9 @@ function CommonForm({ formControls, formData, setFormData, onSubmit, buttonText 
                         </div>)
                 }
             </div>
-            <Button type="submit" className='mt-6 w-full'>
+            <Button disabled={isBtnDisabled} type="submit" className='mt-6 w-full'>
                 {
-                    buttonText || 
+                    buttonText ||
                     'Entregar'
                 }
             </Button>
