@@ -88,7 +88,7 @@ const editarProducto = async (req, res) => {
             existenciaTotal,
         } = req.body;
 
-        const buscarProducto = await Producto.findById(id);
+        let buscarProducto = await Producto.findById(id);
         if (!buscarProducto) return res.status(404).json({
             success: false,
             message: 'Producto no encontrado',
@@ -97,8 +97,8 @@ const editarProducto = async (req, res) => {
         buscarProducto.descripcion = descripcion || buscarProducto.descripcion
         buscarProducto.categoria = categoria || buscarProducto.categoria
         buscarProducto.marca = marca || buscarProducto.marca
-        buscarProducto.precio = precio || buscarProducto.precio
-        buscarProducto.precioVenta = precioVenta || buscarProducto.precioVenta
+        buscarProducto.precio = precio === '' ? 0 : precio || buscarProducto.precio
+        buscarProducto.precioVenta = precioVenta === '' ? 0 : precioVenta || buscarProducto.precioVenta
         buscarProducto.existenciaTotal = existenciaTotal || buscarProducto.existenciaTotal
         buscarProducto.imagen = imagen || buscarProducto.imagen
 
