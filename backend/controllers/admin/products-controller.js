@@ -121,7 +121,7 @@ const editarProducto = async (req, res) => {
 const borrarProducto = async (req, res) => {
     try {
         const { id } = req.params;
-        const producto = await Producto.findByIdAndUpdate(id);
+        const producto = await Producto.findByIdAndDelete(id);
 
         if (!producto) return res.status(404).json({
             success: false,
