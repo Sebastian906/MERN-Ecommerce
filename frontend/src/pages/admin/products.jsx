@@ -4,7 +4,7 @@ import CommonForm from "@/components/common/form";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { addProductFormElements } from "@/config";
-import { agregarNuevoProducto, editarProducto, listarTodosLosProductos } from "@/store/admin/products-slice";
+import { agregarNuevoProducto, borrarProducto, editarProducto, listarTodosLosProductos } from "@/store/admin/products-slice";
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
@@ -59,6 +59,14 @@ function AdminProducts() {
             });
     }
 
+    function handleDelete(getCurrentProductId) {
+        ejecucion(borrarProducto(getCurrentProductId)).then(data=> {
+            if (data?.payload?.success) {
+                ejecucion(listarTodosLosProductos());
+            }
+        })
+    }
+
     function isFormValid() {
         return Object.keys(formData)
             .map(key => formData[key] !== '')
@@ -88,6 +96,7 @@ function AdminProducts() {
                                 setOpenCreateProductsDialog={setOpenCreateProductsDialog}
                                 setCurrentEditedId={setCurrentEditedId}
                                 producto={productItem}
+                                handleDelete={handleDelete}
                             />
                         ))
                         : null

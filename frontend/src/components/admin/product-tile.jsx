@@ -1,7 +1,7 @@
 import { Button } from "../ui/button";
 import { Card, CardContent, CardFooter } from "../ui/card";
 
-function AdminProductTile({ producto, setFormData, setOpenCreateProductsDialog, setCurrentEditedId }) {
+function AdminProductTile({ producto, setFormData, setOpenCreateProductsDialog, setCurrentEditedId, handleDelete }) {
     return (
         <Card className="w-full max-w-sm mx-auto py-0 overflow-hidden">
             <div className="relative">
@@ -43,7 +43,13 @@ function AdminProductTile({ producto, setFormData, setOpenCreateProductsDialog, 
                     setCurrentEditedId(producto?._id);
                     setFormData(producto);
                 }} size="sm" className="!bg-purple-500 hover:!bg-purple-600 !text-neutral-100 !px-5">Editar</Button>
-                <Button size="sm" className="!bg-pink-500 hover:!bg-pink-600 !text-neutral-100 !px-5">Borrar</Button>
+                <Button 
+                    onClick={()=>handleDelete(producto?._id)}
+                    size="sm" 
+                    className="!bg-pink-500 hover:!bg-pink-600 !text-neutral-100 !px-5"
+                >
+                    Borrar
+                </Button>
             </CardFooter>
         </Card>
     );
