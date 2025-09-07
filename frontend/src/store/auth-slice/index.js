@@ -30,6 +30,17 @@ export const loginUsuario = createAsyncThunk('/autorizacion/iniciar-sesion',
     }
 )
 
+export const logoutUsuario = createAsyncThunk('/autorizacion/cerrar-sesion',
+    async () => {
+        const response = await axios.post(
+            'http://localhost:5000/api/autorizacion/cerrar-sesion', {},
+            {
+            withCredentials: true
+        });
+        return response.data
+    }
+)
+
 export const verificarAutenticacion = createAsyncThunk('/autorizacion/verificar-autenticacion',
     async () => {
         const response = await axios.get(
@@ -78,6 +89,10 @@ const authSlice = createSlice({
             state.usuario = action.payload.success ? action.payload.usuario : null;
             state.estaAutenticado = action.payload.success;
         }).addCase(verificarAutenticacion.rejected, (state, action) => {
+            state.estaCargando = false;
+            state.usuario = null;
+            state.estaAutenticado = false;
+        }).addCase(logoutUsuario.fulfilled, (state, action) => {
             state.estaCargando = false;
             state.usuario = null;
             state.estaAutenticado = false;
