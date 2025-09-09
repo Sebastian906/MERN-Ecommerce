@@ -1,43 +1,43 @@
 export const registerFormControls = [
     {
-        name: 'usuario',
-        label: 'Nombre de usuario',
-        placeholder: 'Ingrese su nombre de usuario',
-        componentType: 'input',
-        type: 'text',
+        name: "usuario",
+        label: "Nombre de usuario",
+        placeholder: "Ingrese su nombre de usuario",
+        componentType: "input",
+        type: "text",
     },
     {
-        name: 'correo',
-        label: 'Correo',
-        placeholder: 'Ingrese su correo',
-        componentType: 'input',
-        type: 'email',
+        name: "correo",
+        label: "Correo",
+        placeholder: "Ingrese su correo",
+        componentType: "input",
+        type: "email",
     },
     {
-        name: 'contraseña',
-        label: 'Contraseña',
-        placeholder: 'Ingrese su contraseña',
-        componentType: 'input',
-        type: 'password',
+        name: "contraseña",
+        label: "Contraseña",
+        placeholder: "Ingrese su contraseña",
+        componentType: "input",
+        type: "password",
     },
-]
+];
 
 export const loginFormControls = [
     {
-        name: 'correo',
-        label: 'Correo',
-        placeholder: 'Ingrese su correo',
-        componentType: 'input',
-        type: 'email',
+        name: "correo",
+        label: "Correo",
+        placeholder: "Ingrese su correo",
+        componentType: "input",
+        type: "email",
     },
     {
-        name: 'contraseña',
-        label: 'Contraseña',
-        placeholder: 'Ingrese su contraseña',
-        componentType: 'input',
-        type: 'password',
+        name: "contraseña",
+        label: "Contraseña",
+        placeholder: "Ingrese su contraseña",
+        componentType: "input",
+        type: "password",
     },
-]
+];
 
 export const addProductFormElements = [
     {
@@ -98,5 +98,48 @@ export const addProductFormElements = [
         componentType: "input",
         type: "number",
         placeholder: "Ingrese unidades del producto",
+    },
+];
+
+export const shoppingViewHeaderMenuItems = [
+    {
+        id: "inicio",
+        label: "Inicio",
+        path: "/tienda/inicio",
+    },
+    {
+        id: "productos",
+        label: "Productos",
+        path: "/tienda/lista",
+    },
+    {
+        id: "hombre",
+        label: "Hombre",
+        path: "/tienda/lista",
+    },
+    {
+        id: "mujer",
+        label: "Mujer",
+        path: "/tienda/lista",
+    },
+    {
+        id: "niños",
+        label: "Niños",
+        path: "/tienda/lista",
+    },
+    {
+        id: "calzado",
+        label: "Calzado",
+        path: "/tienda/lista",
+    },
+    {
+        id: "accesorios",
+        label: "Accesorios",
+        path: "/tienda/lista",
+    },
+    {
+        id: "busqueda",
+        label: "Busqueda",
+        path: "/tienda/busqueda",
     },
 ];
