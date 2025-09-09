@@ -16,14 +16,14 @@ function AuthRegister() {
 
     const [formData, setFormData] = useState(initialState)
     const ejecucion = useDispatch();
-    const navegar = useNavigate();
+    const navigate = useNavigate();
 
     function onSubmit(event) {
         event.preventDefault();
         ejecucion(registrarUsuario(formData)).then((data)=> {
             if(data?.payload?.success) {
                 toast.success("Registro exitoso")
-                navegar('/autorizacion/iniciar-sesion')
+                navigate('/autorizacion/iniciar-sesion')
             } else {
                 toast.error("Este correo ya está registrado. Por favor ingrese otro correo.")
             }

@@ -1,10 +1,14 @@
-import { LuChartPie, LuMenu, LuStore } from "react-icons/lu";
-import { Link } from "react-router-dom";
+import { LuChartPie, LuLogOut, LuMenu, LuShoppingCart, LuStore, LuUserCog } from "react-icons/lu";
+import { Link, useNavigate } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { shoppingViewHeaderMenuItems } from "@/config";
 import { Label } from "@radix-ui/react-label";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { Avatar, AvatarFallback } from "../ui/avatar";
+import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
+import { logoutUsuario } from "@/store/auth-slice";
 
 function MenuItems() {
     return (
@@ -23,10 +27,54 @@ function MenuItems() {
     )
 }
 
+function HeaderRightContent() {
+    const { usuario } = useSelector(state => state.auth);
+    const navigate = useNavigate();
+    const ejecucion = useDispatch();
+
+    function handleLogout() {
+        ejecucion(logoutUsuario())
+    }
+
+    return ( 
+        <div className="flex lg:items-center lg:flex-row flex-col gap-4">
+            <Button
+                variant="outline"
+                size="icon"
+                className="!bg-white !text-black hover:!bg-gray-100"
+            >
+                <LuShoppingCart className="h-6 w-6 !text-black" />
+                <span className="sr-only">Carrito de compra</span>
+            </Button>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Avatar className="bg-gray-900">
+                        <AvatarFallback className="bg-gray-900 text-white font-bold">
+                            {usuario?.usuario[0].toUpperCase()}
+                        </AvatarFallback>
+                    </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent side="right" className="w-56">
+                    <DropdownMenuLabel>
+                        Sesión Iniciada como {usuario?.usuario}
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator/>
+                    <DropdownMenuItem onClick={()=>navigate('/tienda/cuenta')}>
+                        <LuUserCog className="mr-2 h-4 w-4" />
+                        Cuenta
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator/>
+                    <DropdownMenuItem onClick={handleLogout}>
+                        <LuLogOut className="mr-2 h-4 w-4" />
+                        Cerrar Sesión
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </div>
+    )
+}
+
 function ShoppingHeader() {
-
-    const { estaAutenticado } = useSelector(state => state.auth);
-
 
     return (
         <header className="sticky top-0 z-40 w-full border-b bg-background">
@@ -38,20 +86,21 @@ function ShoppingHeader() {
                 <Sheet>
                     <SheetTrigger asChild>
                         <Button variant="outline" size="icon" className="lg:hidden">
-                            <LuMenu className="h-6 w-6 bg-slate-900 hover:bg-slate-700 text-white" />
+                            <LuMenu className="h-6 w-6 !bg-slate-900 !hover:bg-slate-700 !text-white" />
                             <span className="sr-only">Menú alterno</span>
                         </Button>
                     </SheetTrigger>
                     <SheetContent side="left" className="w-full max-w-xs">
                         <MenuItems />
+                        <HeaderRightContent/>
                     </SheetContent>
                 </Sheet>
                 <div className="hidden lg:block">
                     <MenuItems />
                 </div>
-                {
-                    estaAutenticado ? <div></div> : null
-                }
+                <div className="hidden lg:block">
+                    <HeaderRightContent/>
+                </div> 
             </div>
         </header>
     );
