@@ -1,7 +1,9 @@
+import ProductFilter from "@/components/shopping/filter";
+
 function ShoppingListing() {
     return ( 
-        <div>
-            Shopping View Listing
+        <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6 p-4 md:p-6">
+            <ProductFilter/>
         </div>
     );
 }
