@@ -12,11 +12,11 @@ import { logoutUsuario } from "@/store/auth-slice";
 
 function MenuItems() {
     return (
-        <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-6 lg:flex-row text-black">
+        <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-1 lg:gap-6 lg:flex-row text-black px-8 pt-8 pb-8">
             {
                 shoppingViewHeaderMenuItems.map((menuItem) => (
                     <Label
-                        className="text-sm font-medium cursor-pointer text-black"
+                        className="text-sm font-medium cursor-pointer text-black py-3 px-2 rounded-md hover:bg-gray-100 w-full lg:w-auto transition-colors"
                         key={menuItem.id}
                         to={menuItem.path}
                     >
@@ -41,7 +41,7 @@ function HeaderRightContent() {
             <Button
                 variant="outline"
                 size="icon"
-                className="!bg-white !text-black hover:!bg-gray-100"
+                className="relative !bg-white !text-black hover:!bg-gray-100"
             >
                 <LuShoppingCart className="h-6 w-6 !text-black" />
                 <span className="sr-only">Carrito de compra</span>
@@ -90,7 +90,7 @@ function ShoppingHeader() {
                             <span className="sr-only">Menú alterno</span>
                         </Button>
                     </SheetTrigger>
-                    <SheetContent side="left" className="w-full max-w-xs">
+                    <SheetContent side="left" className="w-full max-w-xs [&>button[data-state=closed]]:bg-white [&>button[data-state=closed]]:text-white [&>button[data-state=closed]>svg]:text-white">
                         <MenuItems />
                         <HeaderRightContent/>
                     </SheetContent>
