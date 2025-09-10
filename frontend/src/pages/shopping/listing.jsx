@@ -31,11 +31,16 @@ function ShoppingListing() {
         } else {
             const indexOfCurrentOption = cpyFilters[getSectionId].indexOf(getCurrentOption);
             if (indexOfCurrentOption === -1) cpyFilters[getSectionId].push(getCurrentOption)
-                else cpyFilters[getSectionId].splice(indexOfCurrentOption, 1);
+            else cpyFilters[getSectionId].splice(indexOfCurrentOption, 1);
         }
         setFilters(cpyFilters);
         sessionStorage.setItem('filters', JSON.stringify(cpyFilters));
     }
+
+    useEffect(() => {
+        setSort('precio-menoramayor')
+        setFilters(JSON.parse(sessionStorage.getItem('filters')) || {})
+    }, [])
 
     useEffect(() => {
         ejecucion(listarProductosFiltrados())
