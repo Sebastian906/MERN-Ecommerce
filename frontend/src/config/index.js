@@ -161,3 +161,10 @@ export const filterOptions = {
         { id: "h&m", label: "H&M" },
     ],
 }
+
+export const sortOptions = [
+    { id: "precio-menoramayor", label: "Precio: Menor a Mayor" },
+    { id: "precio-mayoramenor", label: "Precio: Mayor a Menor" },
+    { id: "titulo-az", label: "Título: De la A a la Z" },
+    { id: "titulo-za", label: "Título: De la Z a la A" },
+];

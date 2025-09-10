@@ -86,7 +86,7 @@ function ShoppingHeader() {
                 <Sheet>
                     <SheetTrigger asChild>
                         <Button variant="outline" size="icon" className="lg:hidden">
-                            <LuMenu className="h-6 w-6 !bg-slate-900 !hover:bg-slate-700 !text-white" />
+                            <LuMenu className="h-6 w-6 !bg-slate-900 hover:!bg-slate-700 !text-white" />
                             <span className="sr-only">Menú alterno</span>
                         </Button>
                     </SheetTrigger>
