@@ -86,11 +86,11 @@ export const addProductFormElements = [
         placeholder: "Ingrese el precio del producto",
     },
     {
-        label: "Precio de Venta",
+        label: "Precio de Descuento",
         name: "precioVenta",
         componentType: "input",
         type: "number",
-        placeholder: "Ingrese el precio de venta (opcional)",
+        placeholder: "Ingrese el precio de descuento (opcional)",
     },
     {
         label: "Existencia Total",
@@ -160,6 +160,23 @@ export const filterOptions = {
         { id: "zara", label: "Zara" },
         { id: "h&m", label: "H&M" },
     ],
+}
+
+export const categoryOptionsMap = {
+    'hombre' : 'Hombre',
+    'mujer' : 'Mujer',
+    'niños' : 'Niños',
+    'accesorios' : 'Accesorios',
+    'calzado' : 'Calzado'
+}
+
+export const brandOptionsMap = {
+    'nike' : 'Nike',
+    'adidas' : 'Adidas',
+    'puma' : 'Puma',
+    'levi' : 'Levi',
+    'zara' : 'Zara',
+    'h&m' : 'H&M'
 }
 
 export const sortOptions = [

@@ -15,13 +15,13 @@ function MenuItems() {
         <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-1 lg:gap-6 lg:flex-row text-black px-8 pt-8 pb-8">
             {
                 shoppingViewHeaderMenuItems.map((menuItem) => (
-                    <Label
-                        className="text-sm font-medium cursor-pointer text-black py-3 px-2 rounded-md hover:bg-gray-100 w-full lg:w-auto transition-colors"
+                    <Link
+                        className="text-sm font-medium cursor-pointer !text-slate-900 py-3 px-2 rounded-md hover:bg-gray-100 hover:!text-black w-full lg:w-auto transition-colors"
                         key={menuItem.id}
                         to={menuItem.path}
                     >
                         {menuItem.label}
-                    </Label>
+                    </Link>
                 ))}
         </nav>
     )

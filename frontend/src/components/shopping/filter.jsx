@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { filterOptions } from "@/config";
 import { Fragment, useState } from "react";
 import { Label } from "../ui/label";
