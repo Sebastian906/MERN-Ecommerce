@@ -77,7 +77,7 @@ function HeaderRightContent() {
 function ShoppingHeader() {
 
     return (
-        <header className="sticky top-0 z-40 w-full border-b bg-background">
+        <header className="sticky top-0 z-40 w-full border-b bg-pink-100">
             <div className="flex h-16 items-center justify-between px-4 md:px-6">
                 <Link to='/tienda/inicio' className="flex items-center gap-2">
                     <LuStore className="h-6 w-6 text-black" />

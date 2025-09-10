@@ -20,10 +20,10 @@ function ShoppingListing() {
     console.log(productList);
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6 p-4 md:p-6">
+        <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6 p-4 md:p-6 bg-purple-200">
             <ProductFilter />
             <div className="bg-background w-full rounded-lg shadow-sm">
-                <div className="p-4 border-b flex items-center justify-between">
+                <div className="p-4 border-b flex items-center justify-between bg-red-100">
                     <h2 className="text-lg font-extrabold">Todos los Productos</h2>
                     <div className="flex items-center gap-3">
                         <span className="text-muted-foreground">10 Productos</span>

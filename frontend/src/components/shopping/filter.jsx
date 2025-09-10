@@ -18,8 +18,8 @@ function ProductFilter() {
     };
 
     return (
-        <div className="bg-background rounded-lg shadow-sm">
-            <div className="p-4 border-b">
+        <div className="rounded-lg shadow-sm bg-pink-100">
+            <div className="p-4 border-b bg-red-100">
                 <h2 className="text-lg font-extrabold">Filtros</h2>
             </div>
             <div className="p-4 space-y-4">
