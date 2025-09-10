@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
 import AuthLayout from "./components/auth/layout"
 import AuthLogin from "./pages/auth/login"
 import AuthRegister from "./pages/auth/register"
@@ -36,6 +36,8 @@ function App() {
   return (
     <div className="flex flex-col overflow-hidden bg-white">
       <Routes>
+        {/* Redirección automática de la raíz a /autorizacion/iniciar-sesion */}
+        <Route path="/" element={<Navigate to="/autorizacion/iniciar-sesion" replace />} />
         <Route path="/autorizacion" element={
           <CheckAuth estaAutenticado={estaAutenticado} usuario={usuario}>
             <AuthLayout />

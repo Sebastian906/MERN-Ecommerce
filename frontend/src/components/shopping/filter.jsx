@@ -1,21 +1,22 @@
+/* eslint-disable no-unused-vars */
 import { filterOptions } from "@/config";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Label } from "../ui/label";
 import { Checkbox } from "../ui/checkbox";
 import { Separator } from "../ui/separator";
 
-function ProductFilter() {
-    const [selected, setSelected] = useState({});
+function ProductFilter({ filters, handleFilter }) {
+    // const [selected, setSelected] = useState({});
 
-    const handleChange = (group, id, value) => {
-        setSelected((prev) => ({
-            ...prev,
-            [group]: {
-                ...prev[group],
-                [id]: value
-            }
-        }));
-    };
+    // const handleChange = (group, id, value) => {
+    //     setSelected((prev) => ({
+    //         ...prev,
+    //         [group]: {
+    //             ...prev[group],
+    //             [id]: value
+    //         }
+    //     }));
+    // };
 
     return (
         <div className="rounded-lg shadow-sm bg-pink-100">
@@ -32,8 +33,8 @@ function ProductFilter() {
                                     <Label key={option.id} className="flex font-medium items-center gap-2">
                                         <Checkbox
                                             className="w-5 h-5 !bg-white !border-gray-400"
-                                            checked={!!selected[keyItem]?.[option.id]}
-                                            onCheckedChange={value => handleChange(keyItem, option.id, value)}
+                                            // checked={!!selected[keyItem]?.[option.id]}
+                                            onCheckedChange={()=>handleFilter(keyItem, option.id)}
                                         />
                                         {option.label}
                                     </Label>
