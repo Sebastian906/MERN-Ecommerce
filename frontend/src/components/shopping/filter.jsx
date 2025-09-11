@@ -19,7 +19,7 @@ function ProductFilter({ filters, handleFilter }) {
 
     return (
         <div className="rounded-lg shadow-sm bg-pink-100">
-            <div className="p-4 border-b bg-red-100">
+            <div className="p-4 border-b bg-pink-100">
                 <h2 className="text-lg font-extrabold">Filtros</h2>
             </div>
             <div className="p-4 space-y-4">

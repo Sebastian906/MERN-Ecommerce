@@ -5,7 +5,7 @@ import { Card, CardContent, CardFooter } from "../ui/card";
 
 function ShoppingProductTile({ producto }) {
     return (
-        <Card className="w-full max-w-sm mx-auto bg-fuchsia-100">
+        <Card className="w-full max-w-sm mx-auto bg-pink-100">
             <div>
                 <div className="relative">
                     <img
