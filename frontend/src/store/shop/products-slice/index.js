@@ -8,9 +8,15 @@ const initialState = {
 
 export const listarProductosFiltrados = createAsyncThunk(
     '/productos/listar-todos-los-productos',
-    async () => {
+    async ({ filterParams, sortParams }) => {
+
+        const query = new URLSearchParams({
+            ...filterParams,
+            ordenarPor : sortParams
+        })
+
         const result = await axios.get(
-            'http://localhost:5000/api/shop/productos/listar',
+            `http://localhost:5000/api/shop/productos/listar?${query}`,
         );
         return result?.data;
     }
@@ -25,10 +31,10 @@ const shoppingProductsSlice = createSlice({
             state.estaCargando = true
         }).addCase(listarProductosFiltrados.fulfilled, (state, action) => {
             state.estaCargando = false,
-            state.productList = action.payload.data;
+                state.productList = action.payload.data;
         }).addCase(listarProductosFiltrados.rejected, (state) => {
             state.estaCargando = false,
-            state.productList = []
+                state.productList = []
         })
     }
 })

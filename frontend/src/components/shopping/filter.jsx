@@ -31,14 +31,13 @@ function ProductFilter({ filters, handleFilter }) {
                                 {filterOptions[keyItem].map((option) => (
                                     <Label key={option.id} className="flex font-medium items-center gap-2">
                                         <Checkbox
-                                            checked={
+                                            checked={!!(
                                                 filters && 
                                                 Object.keys(filters).length > 0 && 
                                                 filters[keyItem] && 
                                                 filters[keyItem].indexOf(option.id) > -1
-                                            }
+                                            )}
                                             className="w-5 h-5 !bg-white !border-gray-400"
-                                            // checked={!!selected[keyItem]?.[option.id]}
                                             onCheckedChange={()=>handleFilter(keyItem, option.id)}
                                         />
                                         {option.label}
