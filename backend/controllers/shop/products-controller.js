@@ -48,6 +48,29 @@ const obtenerProductosFiltrados = async (req, res) => {
             message: 'Ha ocurrido un error'
         });
     }
+};
+
+const obtenerDetallesProductos = async(req, res) => {
+    try {
+        const { id } = req.params;
+        const producto = await Product.findById(id);
+
+        if(!producto) return res.status(404).json({
+            success: false,
+            message: 'No se ha encontrado el producto'
+        })
+        res.status(200).json({
+            success: true,
+            data: producto
+        })
+
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({
+            success: false,
+            message: 'Ha ocurrido un error'
+        });
+    }
 }
 
-module.exports = { obtenerProductosFiltrados };
+module.exports = { obtenerProductosFiltrados, obtenerDetallesProductos };
