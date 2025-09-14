@@ -2,7 +2,8 @@ import { Dialog, DialogContent } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { Avatar, AvatarFallback } from "../ui/avatar";
-import { LuStar } from "react-icons/lu";
+import { LuStar, LuStarHalf } from "react-icons/lu";
+import { Input } from "../ui/input";
 
 function ProductDetailsDialog({ open, setOpen, productDetails }) {
     return (
@@ -37,10 +38,20 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                                 </p> : null
                         }
                     </div>
+                    <div className="flex items-center gap-2 mt-2">
+                        <div className="flex items-center gap-0.5">
+                            <LuStar className="w-5 h-5 fill-amber-300" />
+                            <LuStar className="w-5 h-5 fill-amber-300" />
+                            <LuStar className="w-5 h-5 fill-amber-300" />
+                            <LuStar className="w-5 h-5 fill-amber-300" />
+                            <LuStarHalf className="w-5 h-5 fill-amber-300" />
+                        </div>
+                        <span className="text-muted-foreground">(4.5)</span>
+                    </div>
                     <div className="mt-5 mb-5">
                         <Button className="w-full">Agregar al Carrito</Button>
                     </div>
-                    <Separator/>
+                    <Separator />
                     <div className="max-h-[300px] overflow-auto">
                         <h2 className="text-xl font-bold mb-4">Reseñas</h2>
                         <div className="grid gap-6">
@@ -55,15 +66,59 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                                         <h3 className="font-bold">Sebastián Salazar</h3>
                                     </div>
                                     <div className="flex items-center gap-0.5">
-                                        <LuStar className="w-5 h-5 fill-amber-300"/>
-                                        <LuStar className="w-5 h-5 fill-amber-300"/>
-                                        <LuStar className="w-5 h-5 fill-amber-300"/>
-                                        <LuStar className="w-5 h-5 fill-amber-300"/>
-                                        <LuStar className="w-5 h-5 fill-amber-300"/>
+                                        <LuStar className="w-5 h-5 fill-primary" />
+                                        <LuStar className="w-5 h-5 fill-primary" />
+                                        <LuStar className="w-5 h-5 fill-primary" />
+                                        <LuStar className="w-5 h-5 fill-primary" />
+                                        <LuStar className="w-5 h-5 fill-primary" />
                                     </div>
                                     <p className="text-muted-foreground">Producto de alta calidad</p>
                                 </div>
                             </div>
+                            <div className="flex gap-4">
+                                <Avatar className="w-10 h-10 bg-gray-500">
+                                    <AvatarFallback>
+                                        SS
+                                    </AvatarFallback>
+                                </Avatar>
+                                <div className="grid gap-1">
+                                    <div className="flex items-center gap-2">
+                                        <h3 className="font-bold">Sebastián Salazar</h3>
+                                    </div>
+                                    <div className="flex items-center gap-0.5">
+                                        <LuStar className="w-5 h-5 fill-primary" />
+                                        <LuStar className="w-5 h-5 fill-primary" />
+                                        <LuStar className="w-5 h-5 fill-primary" />
+                                        <LuStar className="w-5 h-5 fill-primary" />
+                                        <LuStar className="w-5 h-5 fill-primary" />
+                                    </div>
+                                    <p className="text-muted-foreground">Producto de alta calidad</p>
+                                </div>
+                            </div>
+                            <div className="flex gap-4">
+                                <Avatar className="w-10 h-10 bg-gray-500">
+                                    <AvatarFallback>
+                                        SS
+                                    </AvatarFallback>
+                                </Avatar>
+                                <div className="grid gap-1">
+                                    <div className="flex items-center gap-2">
+                                        <h3 className="font-bold">Sebastián Salazar</h3>
+                                    </div>
+                                    <div className="flex items-center gap-0.5">
+                                        <LuStar className="w-5 h-5 fill-primary" />
+                                        <LuStar className="w-5 h-5 fill-primary" />
+                                        <LuStar className="w-5 h-5 fill-primary" />
+                                        <LuStar className="w-5 h-5 fill-primary" />
+                                        <LuStar className="w-5 h-5 fill-primary" />
+                                    </div>
+                                    <p className="text-muted-foreground">Producto de alta calidad</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="mt-6 flex gap-2">
+                            <Input placeholder="Escriba su reseña..."/>
+                            <Button>Enviar</Button>
                         </div>
                     </div>
                 </div>
