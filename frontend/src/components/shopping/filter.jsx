@@ -5,17 +5,6 @@ import { Checkbox } from "../ui/checkbox";
 import { Separator } from "../ui/separator";
 
 function ProductFilter({ filters, handleFilter }) {
-    // const [selected, setSelected] = useState({});
-
-    // const handleChange = (group, id, value) => {
-    //     setSelected((prev) => ({
-    //         ...prev,
-    //         [group]: {
-    //             ...prev[group],
-    //             [id]: value
-    //         }
-    //     }));
-    // };
 
     return (
         <div className="rounded-lg shadow-sm bg-pink-100">

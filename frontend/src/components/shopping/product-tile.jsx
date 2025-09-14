@@ -3,10 +3,10 @@ import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardFooter } from "../ui/card";
 
-function ShoppingProductTile({ producto }) {
+function ShoppingProductTile({ producto, handleGetProductDetails }) {
     return (
         <Card className="w-full max-w-sm mx-auto bg-pink-100">
-            <div>
+            <div onClick={() => handleGetProductDetails(producto?._id)}>
                 <div className="relative">
                     <img
                         src={producto?.imagen}
