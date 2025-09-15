@@ -49,7 +49,51 @@ const agregarAlCarrito = async(req, res) => {
 
 const listarProductosDelCarrito = async(req, res) => {
     try {
-        
+        const { usuarioId } = req.params
+
+        if (!usuarioId) {
+            return res.json(400).json({
+                success: false,
+                message: 'No se ha encontrado al usuario.'
+            })
+        }
+
+        const carrito = await Carrito.findOne({ usuarioId }).populate({
+            path: 'item.productoId',
+            select: "imagen titulo precio precioVenta"
+        })
+
+        if (!carrito) {
+            return res.json(404).json({
+                success: false,
+                message: 'No se encontró el carrito.'
+            })
+        }
+
+        const itemsValidos = carrito.items.filter(productoItem => productoItem.productoId);
+
+        if (itemsValidos.length < carrito.items.length) {
+            carrito.items = itemsValidos
+            await carrito.save()
+        }
+
+        const llenarItemsCarrito = itemsValidos.map(item => ({
+            productoId: item.productoId._id,
+            imagen: item.productoId.imagen,
+            titulo: item.productoId.titulo,
+            precio: item.productoId.precio,
+            precioVenta: item.productoId.precioVenta,
+            cantidad: item.cantidad,
+        }))
+
+        res.status(200).json({
+            success: true,
+            data: {
+                ...carrito._doc,
+                items: llenarItemsCarrito
+            }
+        })
+
     } catch (error) {
         console.log(error);
         res.status(500).json({
