@@ -1,4 +1,4 @@
-const Product = require("../../models/Product");
+const Producto = require("../../models/Product");
 
 const obtenerProductosFiltrados = async (req, res) => {
     try {
@@ -36,7 +36,7 @@ const obtenerProductosFiltrados = async (req, res) => {
                 break;
         }
 
-        const productos = await Product.find(filtros).sort(ordenar);
+        const productos = await Producto.find(filtros).sort(ordenar);
         res.status(200).json({
             success: true,
             data: productos
@@ -53,7 +53,7 @@ const obtenerProductosFiltrados = async (req, res) => {
 const obtenerDetallesProductos = async(req, res) => {
     try {
         const { id } = req.params;
-        const producto = await Product.findById(id);
+        const producto = await Producto.findById(id);
 
         if(!producto) return res.status(404).json({
             success: false,
