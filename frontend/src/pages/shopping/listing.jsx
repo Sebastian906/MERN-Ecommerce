@@ -33,7 +33,6 @@ function ShoppingListing() {
         (state) => state.tiendaProductos
     );
     const { usuario } = useSelector((state) => state.auth)
-    const { cartItems } = useSelector(state => state.carritoProductos)
     const [filters, setFilters] = useState({});
     const [sort, setSort] = useState(null);
     const [searchParams, setSearchParams] = useSearchParams();
@@ -108,8 +107,6 @@ function ShoppingListing() {
     useEffect(() => {
         if (productDetails !== null) setOpenDetailsDialog(true)
     }, [productDetails]);
-
-    console.log(cartItems, "cartItemscartItems");
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6 p-4 md:p-6">

@@ -9,7 +9,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { logoutUsuario } from "@/store/auth-slice";
 import UserCartWrapper from "./cart-wrapper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { listarProductosDelCarrito } from "@/store/shop/cart-slice";
 
 function MenuItems() {
     return (
@@ -30,6 +31,7 @@ function MenuItems() {
 
 function HeaderRightContent() {
     const { usuario } = useSelector(state => state.auth);
+    const { cartItems } = useSelector(state => state.carritoProductos)
     const [openCartSheet, setOpenCartSheet] = useState(false);
     const navigate = useNavigate();
     const ejecucion = useDispatch();
@@ -38,6 +40,15 @@ function HeaderRightContent() {
         ejecucion(logoutUsuario())
     }
 
+    useEffect(() => {
+        if (usuario?.id) {
+            ejecucion(listarProductosDelCarrito(usuario.id));
+        }
+    }, [ejecucion, usuario?.id]);
+
+    console.log(cartItems, "dummy");
+    
+
     return (
         <div className="flex lg:items-center lg:flex-row flex-col gap-4">
             <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
@@ -45,12 +56,16 @@ function HeaderRightContent() {
                     onClick={() => setOpenCartSheet(true)}
                     variant="outline"
                     size="icon"
-                    className="relative !bg-white !text-black hover:!bg-gray-100"
+                    className="relative !text-black !bg-transparent hover:!bg-pink-200"
                 >
                     <LuShoppingCart className="h-6 w-6 !text-black" />
                     <span className="sr-only">Carrito de compra</span>
                 </Button>
-                <UserCartWrapper/>
+                <UserCartWrapper cartItems={
+                    cartItems && cartItems.length > 0
+                    ? cartItems
+                    : []
+                } />
             </Sheet>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -91,8 +106,8 @@ function ShoppingHeader() {
                 </Link>
                 <Sheet>
                     <SheetTrigger asChild>
-                        <Button variant="outline" size="icon" className="lg:hidden">
-                            <LuMenu className="h-6 w-6 !bg-slate-900 hover:!bg-slate-700 !text-white" />
+                        <Button variant="outline" size="icon" className="lg:hidden !bg-pink-100 hover:!bg-pink-200">
+                            <LuMenu className="h-6 w-6 !text-slate-900" />
                             <span className="sr-only">Menú alterno</span>
                         </Button>
                     </SheetTrigger>
