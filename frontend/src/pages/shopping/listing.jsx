@@ -5,6 +5,7 @@ import ShoppingProductTile from "@/components/shopping/product-tile";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { sortOptions } from "@/config";
+import { agregarAlCarrito, listarProductosDelCarrito } from "@/store/shop/cart-slice";
 import { listarDetalles, listarProductosFiltrados } from "@/store/shop/products-slice";
 import { useEffect, useState } from "react";
 import { LuArrowUpDown } from "react-icons/lu";
@@ -28,7 +29,11 @@ function createSearchParamsHelper(filterParams) {
 function ShoppingListing() {
 
     const ejecucion = useDispatch();
-    const { productList, productDetails } = useSelector(state => state.tiendaProductos);
+    const { productList, productDetails } = useSelector(
+        (state) => state.tiendaProductos
+    );
+    const { usuario } = useSelector((state) => state.auth)
+    const { cartItems } = useSelector(state => state.carritoProductos)
     const [filters, setFilters] = useState({});
     const [sort, setSort] = useState(null);
     const [searchParams, setSearchParams] = useSearchParams();
@@ -61,6 +66,23 @@ function ShoppingListing() {
         ejecucion(listarDetalles(getCurrentProductId))
     }
 
+    function handleAddtoCart(getCurrentProductId) {
+        const usuarioId = usuario?.id || usuario?._id;
+        if (!usuarioId) {
+            alert('Debes iniciar sesión para agregar productos al carrito.');
+            return;
+        }
+        ejecucion(agregarAlCarrito({
+            usuarioId,
+            productoId: getCurrentProductId,
+            cantidad: 1
+        })).then(data => {
+            if (data?.payload?.success) {
+                ejecucion(listarProductosDelCarrito(usuarioId));
+            }
+        });
+    }
+
     useEffect(() => {
         setSort('precio-menoramayor')
         setFilters(JSON.parse(sessionStorage.getItem('filters')) || {})
@@ -76,18 +98,18 @@ function ShoppingListing() {
     useEffect(() => {
         if (filters !== null && sort !== null)
             ejecucion(
-                listarProductosFiltrados({ 
-                    filterParams: filters, 
-                    sortParams: sort 
+                listarProductosFiltrados({
+                    filterParams: filters,
+                    sortParams: sort
                 })
             );
     }, [ejecucion, sort, filters])
 
     useEffect(() => {
-        if(productDetails !== null) setOpenDetailsDialog(true)
-    }, [productDetails])
+        if (productDetails !== null) setOpenDetailsDialog(true)
+    }, [productDetails]);
 
-    console.log(productDetails, "productDetails");
+    console.log(cartItems, "cartItemscartItems");
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6 p-4 md:p-6">
@@ -123,16 +145,21 @@ function ShoppingListing() {
                     {
                         productList && productList.length > 0 ?
                             productList.map(productItem => (
-                                <ShoppingProductTile 
+                                <ShoppingProductTile
                                     handleGetProductDetails={handleGetProductDetails}
-                                    key={productItem._id || productItem.id} 
-                                    producto={productItem} 
+                                    key={productItem._id || productItem.id}
+                                    producto={productItem}
+                                    handleAddtoCart={handleAddtoCart}
                                 />
                             )) : null
                     }
                 </div>
             </div>
-            <ProductDetailsDialog open={openDetailsDialog} setOpen={setOpenDetailsDialog} productDetails={productDetails}/>
+            <ProductDetailsDialog
+                open={openDetailsDialog}
+                setOpen={setOpenDetailsDialog}
+                productDetails={productDetails}
+            />
         </div>
     );
 }

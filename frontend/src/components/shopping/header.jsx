@@ -1,4 +1,4 @@
-import { LuChartPie, LuLogOut, LuMenu, LuShoppingCart, LuStore, LuUserCog } from "react-icons/lu";
+import { LuLogOut, LuMenu, LuShoppingCart, LuStore, LuUserCog } from "react-icons/lu";
 import { Link, useNavigate } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
@@ -8,6 +8,8 @@ import { Label } from "../ui/label"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { logoutUsuario } from "@/store/auth-slice";
+import UserCartWrapper from "./cart-wrapper";
+import { useState } from "react";
 
 function MenuItems() {
     return (
@@ -28,6 +30,7 @@ function MenuItems() {
 
 function HeaderRightContent() {
     const { usuario } = useSelector(state => state.auth);
+    const [openCartSheet, setOpenCartSheet] = useState(false);
     const navigate = useNavigate();
     const ejecucion = useDispatch();
 
@@ -35,16 +38,20 @@ function HeaderRightContent() {
         ejecucion(logoutUsuario())
     }
 
-    return ( 
+    return (
         <div className="flex lg:items-center lg:flex-row flex-col gap-4">
-            <Button
-                variant="outline"
-                size="icon"
-                className="relative !bg-white !text-black hover:!bg-gray-100"
-            >
-                <LuShoppingCart className="h-6 w-6 !text-black" />
-                <span className="sr-only">Carrito de compra</span>
-            </Button>
+            <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
+                <Button
+                    onClick={() => setOpenCartSheet(true)}
+                    variant="outline"
+                    size="icon"
+                    className="relative !bg-white !text-black hover:!bg-gray-100"
+                >
+                    <LuShoppingCart className="h-6 w-6 !text-black" />
+                    <span className="sr-only">Carrito de compra</span>
+                </Button>
+                <UserCartWrapper/>
+            </Sheet>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Avatar className="bg-gray-900">
@@ -57,12 +64,12 @@ function HeaderRightContent() {
                     <DropdownMenuLabel>
                         Sesión Iniciada como {usuario?.usuario}
                     </DropdownMenuLabel>
-                    <DropdownMenuSeparator/>
-                    <DropdownMenuItem onClick={()=>navigate('/tienda/cuenta')}>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => navigate('/tienda/cuenta')}>
                         <LuUserCog className="mr-2 h-4 w-4" />
                         Cuenta
                     </DropdownMenuItem>
-                    <DropdownMenuSeparator/>
+                    <DropdownMenuSeparator />
                     <DropdownMenuItem onClick={handleLogout}>
                         <LuLogOut className="mr-2 h-4 w-4" />
                         Cerrar Sesión
@@ -91,15 +98,15 @@ function ShoppingHeader() {
                     </SheetTrigger>
                     <SheetContent side="left" className="w-full max-w-xs [&>button[data-state=closed]]:bg-white [&>button[data-state=closed]]:text-white [&>button[data-state=closed]>svg]:text-white">
                         <MenuItems />
-                        <HeaderRightContent/>
+                        <HeaderRightContent />
                     </SheetContent>
                 </Sheet>
                 <div className="hidden lg:block">
                     <MenuItems />
                 </div>
                 <div className="hidden lg:block">
-                    <HeaderRightContent/>
-                </div> 
+                    <HeaderRightContent />
+                </div>
             </div>
         </header>
     );
