@@ -50,7 +50,6 @@ const agregarAlCarrito = async(req, res) => {
 const listarProductosDelCarrito = async(req, res) => {
     try {
         const { usuarioId } = req.params
-
         if (!usuarioId) {
             return res.json(400).json({
                 success: false,
@@ -59,7 +58,7 @@ const listarProductosDelCarrito = async(req, res) => {
         }
 
         const carrito = await Carrito.findOne({ usuarioId }).populate({
-            path: 'item.productoId',
+            path: "items.productoId",
             select: "imagen titulo precio precioVenta"
         })
 
@@ -135,8 +134,8 @@ const actualizarCarrito = async(req, res) => {
         await carrito.save();
 
         await carrito.populate({
-            path: 'items.productoId',
-            select: 'imagen titulo precio precioVenta',
+            path: "items.productoId",
+            select: "imagen titulo precio precioVenta'"
         })
 
         const llenarItemsCarrito = carrito.items.map(item => ({
