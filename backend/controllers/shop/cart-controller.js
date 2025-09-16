@@ -141,10 +141,10 @@ const actualizarCarrito = async(req, res) => {
 
         const llenarItemsCarrito = carrito.items.map(item => ({
             productoId: item.productoId ? item.productoId._id : null,
-            imagen: item.imagen ? item.productoId.imagen : null,
-            titulo: item.titulo ? item.productoId.titulo : 'Producto no encontrado',
-            precio: item.precio ? item.productoId.precio : null,
-            precioVenta: item.precioVenta ? item.productoId.precioVenta : null,
+            imagen: item.productoId ? item.productoId.imagen : null,
+            titulo: item.productoId ? item.productoId.titulo : 'Producto no encontrado',
+            precio: item.productoId ? item.productoId.precio : null,
+            precioVenta: item.productoId ? item.productoId.precioVenta : null,
             cantidad: item.cantidad,
         }));
 
@@ -167,7 +167,52 @@ const actualizarCarrito = async(req, res) => {
 
 const eliminarProductosDeCarrito = async(req, res) => {
     try {
-        
+        const { usuarioId, productoId } = req.params
+        if (!usuarioId || !productoId) {
+            return res.json(400).json({
+                success: false,
+                message: 'Los datos ingresados son inválidos.'
+            });
+        }
+
+        const carrito = await Carrito.findOne({usuarioId}).populate({
+            path: "items.productoId",
+            select: "imagen titulo precio precioVenta",
+        });
+
+        if (!carrito) {
+            return res.status(404).json({
+                success: false,
+                message: 'No se encontró el carrito.'
+            });
+        }
+
+        carrito.items = carrito.items.filter(item => item.productoId._id.toString() !== productoId)
+
+        await carrito.save();
+
+        await Carrito.populate({
+            path: "items.productoId",
+            select: "imagen titulo precio precioVenta",
+        });
+
+        const llenarItemsCarrito = carrito.items.map(item => ({
+            productoId: item.productoId ? item.productoId._id : null,
+            imagen: item.productoId ? item.productoId.imagen : null,
+            titulo: item.productoId ? item.productoId.titulo : 'Producto no encontrado',
+            precio: item.productoId ? item.productoId.precio : null,
+            precioVenta: item.productoId ? item.productoId.precioVenta : null,
+            cantidad: item.cantidad,
+        }));
+
+        res.status(200).json({
+            success: true,
+            data: {
+                ...carrito._doc,
+                items: llenarItemsCarrito
+            }
+        });
+
     } catch (error) {
         console.log(error);
         res.status(500).json({
