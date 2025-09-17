@@ -190,7 +190,7 @@ const eliminarProductosDeCarrito = async(req, res) => {
 
         await carrito.save();
 
-        await Carrito.populate({
+        await carrito.populate({
             path: "items.productoId",
             select: "imagen titulo precio precioVenta",
         });
