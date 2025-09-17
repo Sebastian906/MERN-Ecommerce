@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { LuArrowUpDown } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+import { toast } from "sonner";
 
 function createSearchParamsHelper(filterParams) {
     const queryParams = [];
@@ -78,6 +79,7 @@ function ShoppingListing() {
         })).then(data => {
             if (data?.payload?.success) {
                 ejecucion(listarProductosDelCarrito(usuarioId));
+                toast.success("Producto agregado al carrito")
             }
         });
     }

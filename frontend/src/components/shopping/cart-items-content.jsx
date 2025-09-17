@@ -1,7 +1,23 @@
 import { LuMinus, LuPlus, LuTrash2 } from "react-icons/lu";
 import { Button } from "../ui/button";
+import { useDispatch, useSelector } from "react-redux";
+import { eliminarProductosDeCarrito } from "@/store/shop/cart-slice";
+import { toast } from "sonner";
 
 function UserCartItemsContent({ cartItem }) {
+
+    const { usuario } = useSelector(state => state.auth)
+
+    const ejecucion = useDispatch();
+
+    function handleCartItemDelete(getCartItem) {
+        ejecucion(eliminarProductosDeCarrito({ 
+            usuarioId: usuario?.id, 
+            productoId: getCartItem?.productoId
+        }));
+        toast.warning("Producto eliminado del carrito")
+    }
+
     return (
         <div className="flex items-center space-x-4">
             <img
@@ -35,7 +51,7 @@ function UserCartItemsContent({ cartItem }) {
                 <p className="font-semibold">
                     ${((cartItem?.precioVenta > 0 ? cartItem?.precioVenta : cartItem?.precio) * cartItem?.cantidad).toFixed(2)}
                 </p>
-                <LuTrash2 className="cursor-pointer mt-1" size={20}/>
+                <LuTrash2 onClick={() => handleCartItemDelete(cartItem)} className="cursor-pointer mt-1" size={20}/>
             </div>
         </div>
     );
