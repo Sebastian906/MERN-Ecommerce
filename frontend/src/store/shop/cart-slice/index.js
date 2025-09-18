@@ -33,8 +33,7 @@ export const actualizarCarrito = createAsyncThunk('carrito/actualizar-carrito',
             usuarioId,
             productoId,
             cantidad,
-        }
-        );
+        });
         return response.data
     });
 
@@ -55,7 +54,9 @@ const shoppingCartSlice = createSlice({
             state.estaCargando = true;
         }).addCase(agregarAlCarrito.fulfilled, (state, action) => {
             state.estaCargando = false;
-            state.cartItems = action.payload.data.items;
+                state.cartItems = (action.payload && action.payload.data && Array.isArray(action.payload.data.items))
+                    ? action.payload.data.items
+                    : [];
         }).addCase(agregarAlCarrito.rejected, (state) => {
             state.estaCargando = false;
             state.cartItems = []
@@ -63,7 +64,9 @@ const shoppingCartSlice = createSlice({
             state.estaCargando = true;
         }).addCase(listarProductosDelCarrito.fulfilled, (state, action) => {
             state.estaCargando = false;
-            state.cartItems = action.payload.data.items;
+                state.cartItems = (action.payload && action.payload.data && Array.isArray(action.payload.data.items))
+                    ? action.payload.data.items
+                    : [];
         }).addCase(listarProductosDelCarrito.rejected, (state) => {
             state.estaCargando = false;
             state.cartItems = []
@@ -71,7 +74,9 @@ const shoppingCartSlice = createSlice({
             state.estaCargando = true;
         }).addCase(actualizarCarrito.fulfilled, (state, action) => {
             state.estaCargando = false;
-            state.cartItems = action.payload.data.items;
+                state.cartItems = (action.payload && action.payload.data && Array.isArray(action.payload.data.items))
+                    ? action.payload.data.items
+                    : [];
         }).addCase(actualizarCarrito.rejected, (state) => {
             state.estaCargando = false;
             state.cartItems = []
@@ -79,7 +84,9 @@ const shoppingCartSlice = createSlice({
             state.estaCargando = true;
         }).addCase(eliminarProductosDeCarrito.fulfilled, (state, action) => {
             state.estaCargando = false;
-            state.cartItems = action.payload.data.items;
+                state.cartItems = (action.payload && action.payload.data && Array.isArray(action.payload.data.items))
+                    ? action.payload.data.items
+                    : [];
         }).addCase(eliminarProductosDeCarrito.rejected, (state) => {
             state.estaCargando = false;
             state.cartItems = []

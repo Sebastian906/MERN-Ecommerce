@@ -12,7 +12,7 @@ function AdminHeader({ setOpen }) {
     }
 
     return (
-        <header className="flex items-center justify-between px-4 py-3 bg-background border-b">
+        <header className="flex items-center justify-between px-4 py-3 border-b bg-pink-100">
             <Button onClick={() => setOpen(true)} className='lg:hidden sm:block bg-slate-900 hover:bg-slate-700 text-white' variant="ghost">
                 <LuAlignJustify />
                 <span className="sr-only">Menú alterno</span>

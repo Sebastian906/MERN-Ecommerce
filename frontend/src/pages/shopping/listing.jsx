@@ -68,10 +68,6 @@ function ShoppingListing() {
 
     function handleAddtoCart(getCurrentProductId) {
         const usuarioId = usuario?.id || usuario?._id;
-        if (!usuarioId) {
-            alert('Debes iniciar sesión para agregar productos al carrito.');
-            return;
-        }
         ejecucion(agregarAlCarrito({
             usuarioId,
             productoId: getCurrentProductId,

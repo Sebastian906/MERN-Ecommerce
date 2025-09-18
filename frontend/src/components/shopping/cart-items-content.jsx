@@ -1,7 +1,7 @@
 import { LuMinus, LuPlus, LuTrash2 } from "react-icons/lu";
 import { Button } from "../ui/button";
 import { useDispatch, useSelector } from "react-redux";
-import { eliminarProductosDeCarrito } from "@/store/shop/cart-slice";
+import { actualizarCarrito, eliminarProductosDeCarrito } from "@/store/shop/cart-slice";
 import { toast } from "sonner";
 
 function UserCartItemsContent({ cartItem }) {
@@ -10,12 +10,29 @@ function UserCartItemsContent({ cartItem }) {
 
     const ejecucion = useDispatch();
 
+    function handleUpdateQuantity(getCartItem, typeOfAction) {
+        ejecucion(actualizarCarrito({
+            usuarioId: usuario?.id, 
+            productoId: getCartItem?.productoId, 
+            cantidad: typeOfAction === "mas" ? 
+                getCartItem?.cantidad + 1 : 
+                getCartItem?.cantidad - 1
+        })).then(data => {
+            if (data?.payload?.success) {
+                toast.info("Se actualiza contenido del carrito.")
+            }
+        });
+    }
+
     function handleCartItemDelete(getCartItem) {
         ejecucion(eliminarProductosDeCarrito({ 
             usuarioId: usuario?.id, 
             productoId: getCartItem?.productoId
-        }));
-        toast.warning("Producto eliminado del carrito")
+        })).then(data => {
+            if (data?.payload?.success) {
+                toast.warning("Producto eliminado del carrito.")
+            }
+        });
     }
 
     return (
@@ -32,6 +49,8 @@ function UserCartItemsContent({ cartItem }) {
                         variant="outline"
                         size="icon"
                         className="h-8 w-8 !bg-transparent"
+                        disabled = {cartItem?.cantidad === 1}
+                        onClick={() => handleUpdateQuantity(cartItem, 'menos')}
                     >
                         <LuMinus className="w-4 h-4 text-black hover:!bg-pink-200" />
                         <span className="sr-only">Quitar</span>
@@ -41,6 +60,7 @@ function UserCartItemsContent({ cartItem }) {
                         variant="outline"
                         size="icon"
                         className="h-8 w-8 !bg-transparent"
+                        onClick={() => handleUpdateQuantity(cartItem, 'mas')}
                     >
                         <LuPlus className="w-4 h-4 text-black hover:!bg-pink-200" />
                         <span className="sr-only">Añadir</span>

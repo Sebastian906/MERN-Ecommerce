@@ -1,14 +1,38 @@
 import { Dialog, DialogContent } from "../ui/dialog";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { LuStar, LuStarHalf } from "react-icons/lu";
 import { Input } from "../ui/input";
+import { useDispatch, useSelector } from "react-redux";
+import { agregarAlCarrito, listarProductosDelCarrito } from "@/store/shop/cart-slice";
+import { toast } from "sonner";
+import { DialogTitle } from "@radix-ui/react-dialog";
 
 function ProductDetailsDialog({ open, setOpen, productDetails }) {
+
+    const ejecucion = useDispatch();
+    const { usuario } = useSelector(state => state.auth)
+
+    function handleAddtoCart(getCurrentProductId) {
+        const usuarioId = usuario?.id || usuario?._id;
+        const productoId = getCurrentProductId;
+        const cantidad = 1;
+        ejecucion(agregarAlCarrito({ usuarioId, productoId, cantidad })).then(data => {
+            if (data?.payload?.success) {
+                ejecucion(listarProductosDelCarrito(usuarioId));
+                toast.success("Producto agregado al carrito");
+            }
+        });
+    }
+
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent className="grid grid-cols-2 gap-8 sm:p-12 max-w-[90vw] sm:max-w-[80vw] lg:max-w-[70vw]">
+                <VisuallyHidden>
+                    <DialogTitle>Detalles del producto</DialogTitle>
+                </VisuallyHidden>
                 <div className="relative overflow-hidden rounded-lg">
                     <img
                         src={productDetails?.imagen}
@@ -49,7 +73,12 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                         <span className="text-muted-foreground">(4.5)</span>
                     </div>
                     <div className="mt-5 mb-5">
-                        <Button className="w-full">Agregar al Carrito</Button>
+                        <Button 
+                            className="w-full"
+                            onClick={()=>handleAddtoCart(productDetails?._id)}
+                        >
+                            Agregar al Carrito
+                        </Button>
                     </div>
                     <Separator />
                     <div className="max-h-[300px] overflow-auto">

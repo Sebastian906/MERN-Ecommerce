@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter } from "../ui/card";
 
 function AdminProductTile({ producto, setFormData, setOpenCreateProductsDialog, setCurrentEditedId, handleDelete }) {
     return (
-        <Card className="w-full max-w-sm mx-auto py-0 overflow-hidden">
+        <Card className="w-full max-w-sm mx-auto py-0 overflow-hidden bg-pink-100">
             <div className="relative">
                 {producto?.imagen ? (
                     <img

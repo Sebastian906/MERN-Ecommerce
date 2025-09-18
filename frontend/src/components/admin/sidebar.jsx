@@ -54,8 +54,8 @@ function AdminSidebar({ open, setOpen }) {
     return (
         <Fragment>
             <Sheet open={open} onOpenChange={setOpen}>
-                <SheetContent side="left" className="w-72 [&>button]:text-white [&>button]:hover:text-gray-300">
-                    <div className="flex flex-col h-full">
+                <SheetContent side="left" className="w-72 [&>button]:text-white [&>button]:hover:text-gray-300 bg-pink-100">
+                    <div className="flex flex-col h-full bg-pink-100">
                         <SheetHeader className="border-b pb-4">
                             <SheetTitle className="flex items-center gap-2 text-xl font-extrabold pr-10">
                                 <LuChartNoAxesCombined size={22} />
