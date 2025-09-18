@@ -5,7 +5,7 @@ const agregarAlCarrito = async(req, res) => {
     try {
         const { usuarioId, productoId, cantidad } = req.body;
         if ( !usuarioId || !productoId || cantidad <= 0) {
-            return res.json(400).json({
+            return res.status(400).json({
                 success: false,
                 message: 'Los datos ingresados son inválidos.'
             })
@@ -14,7 +14,7 @@ const agregarAlCarrito = async(req, res) => {
         const producto  = await Producto.findById(productoId);
 
         if (!producto) {
-            return res.json(404).json({
+            return res.status(404).json({
                 success: false,
                 message: 'Producto no encontrado.'
             })
@@ -51,7 +51,7 @@ const listarProductosDelCarrito = async(req, res) => {
     try {
         const { usuarioId } = req.params
         if (!usuarioId) {
-            return res.json(400).json({
+            return res.status(400).json({
                 success: false,
                 message: 'No se ha encontrado al usuario.'
             })
@@ -63,7 +63,7 @@ const listarProductosDelCarrito = async(req, res) => {
         })
 
         if (!carrito) {
-            return res.json(404).json({
+            return res.status(404).json({
                 success: false,
                 message: 'No se encontró el carrito.'
             })
@@ -106,7 +106,7 @@ const actualizarCarrito = async(req, res) => {
     try {
         const { usuarioId, productoId, cantidad } = req.body;
         if ( !usuarioId || !productoId || cantidad <= 0) {
-            return res.json(400).json({
+            return res.status(400).json({
                 success: false,
                 message: 'Los datos ingresados son inválidos.'
             })
@@ -115,7 +115,7 @@ const actualizarCarrito = async(req, res) => {
         const carrito = await Carrito.findOne({ usuarioId });
 
         if (!carrito) {
-            return res.json(404).json({
+            return res.status(404).json({
                 success: false,
                 message: 'No se encontró el carrito.'
             })
@@ -168,7 +168,7 @@ const eliminarProductosDeCarrito = async(req, res) => {
     try {
         const { usuarioId, productoId } = req.params
         if (!usuarioId || !productoId) {
-            return res.json(400).json({
+            return res.status(400).json({
                 success: false,
                 message: 'Los datos ingresados son inválidos.'
             });
