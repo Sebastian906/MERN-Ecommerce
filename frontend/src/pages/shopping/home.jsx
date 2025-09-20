@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { listarProductosFiltrados } from '@/store/shop/products-slice';
 import ShoppingProductTile from '@/components/shopping/product-tile';
+import { SiAdidas, SiHandm, SiNike, SiPuma, SiZara } from "react-icons/si";
+import { PiPants } from "react-icons/pi";
 
 const categoriasConIcono = [
     { id: "hombre", label: "Hombre", icon: LuShirt },
@@ -15,6 +17,15 @@ const categoriasConIcono = [
     { id: "niños", label: "Niños", icon: LuBaby },
     { id: "accesorios", label: "Accesorios", icon: LuWatch },
     { id: "calzado", label: "Calzado", icon: LuFootprints },
+];
+
+const marcasConIcono = [
+    { id: "nike", label: "Nike", icon: SiNike },
+    { id: "adidas", label: "Adidas", icon: SiAdidas },
+    { id: "puma", label: "Puma", icon: SiPuma },
+    { id: "levi", label: "Levi's", icon: PiPants },
+    { id: "zara", label: "Zara", icon: SiZara },
+    { id: "h&m", label: "H&M", icon: SiHandm },
 ];
 
 function ShoppingHome() {
@@ -87,6 +98,23 @@ function ShoppingHome() {
                                 <CardContent className="flex flex-col items-center justify-center p-6">
                                     <categoryItem.icon className='w-12 h-12 mb-4 text-primary'/>
                                     <span className='font-bold'>{categoryItem.label}</span>
+                                </CardContent>
+                            </Card>)
+                        }
+                    </div>
+                </div>
+            </section>
+            <section className='py-12 bg-pink-100'>
+                <div className='container mx-auto px-4'>
+                    <h2 className='text-3xl font-bold text-center mb-8'>
+                        Comprar por Marca
+                    </h2>
+                    <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4'>
+                        {
+                            marcasConIcono.map(marcaItem => <Card className="cursor-pointer hover:shadow-lg transition-shadow bg-pink-100 hover:bg-pink-200"> 
+                                <CardContent className="flex flex-col items-center justify-center p-6">
+                                    <marcaItem.icon className='w-12 h-12 mb-4 text-primary'/>
+                                    <span className='font-bold'>{marcaItem.label}</span>
                                 </CardContent>
                             </Card>)
                         }
