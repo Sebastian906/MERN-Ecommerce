@@ -81,9 +81,16 @@ function ShoppingListing() {
     }
 
     useEffect(() => {
-        setSort('precio-menoramayor')
-        setFilters(JSON.parse(sessionStorage.getItem('filters')) || {})
-    }, [])
+        setSort('precio-menoramayor');
+        // Leer el filtro desde la URL
+        const categoriaParam = searchParams.get('categoria');
+        if (categoriaParam) {
+            setFilters({ categoria: [categoriaParam] });
+            sessionStorage.setItem('filters', JSON.stringify({ categoria: [categoriaParam] }));
+        } else {
+            setFilters(JSON.parse(sessionStorage.getItem('filters')) || {});
+        }
+    }, [searchParams]);
 
     useEffect(() => {
         if (filters && Object.keys(filters).length > 0) {

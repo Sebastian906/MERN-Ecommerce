@@ -123,7 +123,8 @@ function ShoppingHome() {
                     </h2>
                     <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4'>
                         {
-                            marcasConIcono.map(marcaItem => <Card className="cursor-pointer hover:shadow-lg transition-shadow bg-pink-100 hover:bg-pink-200"> 
+                            marcasConIcono.map(marcaItem => 
+                            <Card onClick={()=>handleNavigateToListingPage(marcaItem, 'marca')} className="cursor-pointer hover:shadow-lg transition-shadow bg-pink-100 hover:bg-pink-200"> 
                                 <CardContent className="flex flex-col items-center justify-center p-6">
                                     <marcaItem.icon className='w-12 h-12 mb-4 text-primary'/>
                                     <span className='font-bold'>{marcaItem.label}</span>

@@ -130,26 +130,6 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                                     <p className="text-muted-foreground">Producto de alta calidad</p>
                                 </div>
                             </div>
-                            <div className="flex gap-4">
-                                <Avatar className="w-10 h-10 bg-gray-500">
-                                    <AvatarFallback>
-                                        SS
-                                    </AvatarFallback>
-                                </Avatar>
-                                <div className="grid gap-1">
-                                    <div className="flex items-center gap-2">
-                                        <h3 className="font-bold">Sebastián Salazar</h3>
-                                    </div>
-                                    <div className="flex items-center gap-0.5">
-                                        <LuStar className="w-5 h-5 fill-primary" />
-                                        <LuStar className="w-5 h-5 fill-primary" />
-                                        <LuStar className="w-5 h-5 fill-primary" />
-                                        <LuStar className="w-5 h-5 fill-primary" />
-                                        <LuStar className="w-5 h-5 fill-primary" />
-                                    </div>
-                                    <p className="text-muted-foreground">Producto de alta calidad</p>
-                                </div>
-                            </div>
                         </div>
                         <div className="mt-6 flex gap-2">
                             <Input placeholder="Escriba su reseña..."/>

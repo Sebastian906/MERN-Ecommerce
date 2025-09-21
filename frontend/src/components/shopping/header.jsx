@@ -4,26 +4,49 @@ import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { shoppingViewHeaderMenuItems } from "@/config";
-import { Label } from "../ui/label"
+import { filterOptions } from "@/config";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { logoutUsuario } from "@/store/auth-slice";
 import UserCartWrapper from "./cart-wrapper";
 import { useEffect, useState } from "react";
 import { listarProductosDelCarrito } from "@/store/shop/cart-slice";
+import { Label } from "../ui/label";
 
 function MenuItems() {
+
+    const navigate = useNavigate();
+
+    function handleNavigate(getCurrentMenuItem) {
+        sessionStorage.removeItem('filters');
+        if (getCurrentMenuItem.id === 'productos') {
+            navigate('/tienda/lista');
+            return;
+        }
+        const categoriaIds = filterOptions.Categoria.map(cat => cat.id);
+        if (categoriaIds.includes(getCurrentMenuItem.id)) {
+            const currentFilter = {
+                categoria: [getCurrentMenuItem.id]
+            };
+            sessionStorage.setItem('filters', JSON.stringify(currentFilter));
+            navigate(`/tienda/lista?categoria=${getCurrentMenuItem.id}`);
+            return;
+        }
+        sessionStorage.setItem('filters', JSON.stringify({}));
+        navigate(getCurrentMenuItem.path);
+    }
+
     return (
         <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-1 lg:gap-6 lg:flex-row text-slate-900 px-8 pt-8 pb-8">
             {
                 shoppingViewHeaderMenuItems.map((menuItem) => (
-                    <Link
+                    <Label
+                        onClick={() => handleNavigate(menuItem)}
                         className="text-sm font-medium cursor-pointer !text-slate-900 py-3 px-2 rounded-md hover:bg-pink-200 hover:!text-black w-full lg:w-auto transition-colors"
                         key={menuItem.id}
-                        to={menuItem.path}
                     >
                         {menuItem.label}
-                    </Link>
+                    </Label>
                 ))}
         </nav>
     )
