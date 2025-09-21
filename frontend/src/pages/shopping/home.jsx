@@ -10,6 +10,7 @@ import { listarProductosFiltrados } from '@/store/shop/products-slice';
 import ShoppingProductTile from '@/components/shopping/product-tile';
 import { SiAdidas, SiHandm, SiNike, SiPuma, SiZara } from "react-icons/si";
 import { PiPants } from "react-icons/pi";
+import { useNavigate } from 'react-router-dom';
 
 const categoriasConIcono = [
     { id: "hombre", label: "Hombre", icon: LuShirt },
@@ -33,10 +34,16 @@ function ShoppingHome() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const { productList } = useSelector(state => state.tiendaProductos)
     const ejecucion = useDispatch();
+    const navigate = useNavigate();
     const slides = [bannerOne, bannerTwo, bannerThree];
 
-    function handleNavigateToListingPage() {
-        
+    function handleNavigateToListingPage(getCurrentItem, section) {
+        sessionStorage.removeItem('filters');
+        const currentFilter = {
+            [section] : [getCurrentItem.id]
+        }
+        sessionStorage.setItem('filters', JSON.stringify(currentFilter));
+        navigate('/tienda/lista')
     }
 
     useEffect(() => {

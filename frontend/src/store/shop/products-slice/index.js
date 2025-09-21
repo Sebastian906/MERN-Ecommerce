@@ -10,12 +10,15 @@ const initialState = {
 export const listarProductosFiltrados = createAsyncThunk(
     '/productos/listar-todos-los-productos',
     async ({ filterParams, sortParams }) => {
-
+        const mappedFilters = {};
+        Object.entries(filterParams).forEach(([key, value]) => {
+            const newKey = key.charAt(0).toUpperCase() + key.slice(1);
+            mappedFilters[newKey] = Array.isArray(value) ? value.join(',') : value;
+        });
         const query = new URLSearchParams({
-            ...filterParams,
-            ordenarPor : sortParams
-        })
-
+            ...mappedFilters,
+            ordenarPor: sortParams
+        });
         const result = await axios.get(
             `http://localhost:5000/api/shop/productos/listar?${query}`,
         );

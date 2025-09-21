@@ -14,11 +14,11 @@ import { listarProductosDelCarrito } from "@/store/shop/cart-slice";
 
 function MenuItems() {
     return (
-        <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-1 lg:gap-6 lg:flex-row text-black px-8 pt-8 pb-8">
+        <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-1 lg:gap-6 lg:flex-row text-slate-900 px-8 pt-8 pb-8">
             {
                 shoppingViewHeaderMenuItems.map((menuItem) => (
                     <Link
-                        className="text-sm font-medium cursor-pointer !text-slate-900 py-3 px-2 rounded-md hover:bg-gray-100 hover:!text-black w-full lg:w-auto transition-colors"
+                        className="text-sm font-medium cursor-pointer !text-slate-900 py-3 px-2 rounded-md hover:bg-pink-200 hover:!text-black w-full lg:w-auto transition-colors"
                         key={menuItem.id}
                         to={menuItem.path}
                     >
