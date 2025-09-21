@@ -35,6 +35,10 @@ function ShoppingHome() {
     const ejecucion = useDispatch();
     const slides = [bannerOne, bannerTwo, bannerThree];
 
+    function handleNavigateToListingPage() {
+        
+    }
+
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentSlide(prevSlide => (prevSlide + 1) % slides.length)
@@ -94,7 +98,8 @@ function ShoppingHome() {
                     </h2>
                     <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4'>
                         {
-                            categoriasConIcono.map(categoryItem => <Card className="cursor-pointer hover:shadow-lg transition-shadow bg-pink-100 hover:bg-pink-200"> 
+                            categoriasConIcono.map(categoryItem => 
+                            <Card onClick={()=>handleNavigateToListingPage(categoryItem, 'categoria')} className="cursor-pointer hover:shadow-lg transition-shadow bg-pink-100 hover:bg-pink-200"> 
                                 <CardContent className="flex flex-col items-center justify-center p-6">
                                     <categoryItem.icon className='w-12 h-12 mb-4 text-primary'/>
                                     <span className='font-bold'>{categoryItem.label}</span>
