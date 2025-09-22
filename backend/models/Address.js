@@ -11,4 +11,4 @@ const AddressSchema = new mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model('Cuenta', CartSchema);
+module.exports = mongoose.model('Cuenta', AddressSchema);
