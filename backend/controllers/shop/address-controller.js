@@ -95,6 +95,31 @@ const editarCuenta = async (req, res) => {
 
 const eliminarCuenta = async (req, res) => {
     try {
+        const { usuarioId, cuentaId } = req.params;
+
+        if (!usuarioId || !cuentaId) {
+            return res.status(400).json({
+                success: false,
+                message: 'Se requiere del usuario y la cuenta'
+            });
+        }
+
+        const cuenta = await Cuenta.findByIdAndDelete({
+            _id: cuentaId,
+            usuarioId,
+        });
+
+        if (!cuenta) {
+            return res.status(404).json({
+                success: false,
+                message: 'Cuenta no encontrada',
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: 'Cuenta eliminada exitosamente'
+        });
 
     } catch (error) {
         console.log(error);
