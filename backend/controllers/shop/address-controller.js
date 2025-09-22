@@ -1,6 +1,6 @@
 const Cuenta = require('../../models/Address')
 
-const agregarCuenta = async(req, res) => {
+const agregarCuenta = async (req, res) => {
     try {
         const { usuarioId, direccion, ciudad, codigopin, telefono, notas } = req.body;
         if (!usuarioId || !direccion || !ciudad || !codigopin || !telefono || !notas) {
@@ -29,7 +29,7 @@ const agregarCuenta = async(req, res) => {
     }
 }
 
-const listarCuentas = async(req, res) => {
+const listarCuentas = async (req, res) => {
     try {
         const { usuarioId } = req.params();
         if (!usuarioId) {
@@ -39,7 +39,7 @@ const listarCuentas = async(req, res) => {
             });
         }
 
-        const listaDeCuentas = await Cuenta.find({usuarioId});
+        const listaDeCuentas = await Cuenta.find({ usuarioId });
 
         res.status(200).json({
             success: true,
@@ -55,9 +55,35 @@ const listarCuentas = async(req, res) => {
     }
 }
 
-const editarCuenta = async(req, res) => {
+const editarCuenta = async (req, res) => {
     try {
-        
+        const { usuarioId, cuentaId } = req.params;
+        const formData = req.body;
+
+        if (!usuarioId || !cuentaId) {
+            return res.status(400).json({
+                success: false,
+                message: 'Se requiere del usuario y la cuenta'
+            });
+        }
+
+        const cuenta = await Cuenta.findOneAndUpdate({
+            _id: cuentaId, 
+            usuarioId
+        }, formData, { new: true });
+
+        if (!cuenta) {
+            return res.status(404).json({
+                success: false,
+                message: 'Cuenta no encontrada'
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: cuenta
+        });
+
     } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -67,9 +93,9 @@ const editarCuenta = async(req, res) => {
     }
 }
 
-const eliminarCuenta = async(req, res) => {
+const eliminarCuenta = async (req, res) => {
     try {
-        
+
     } catch (error) {
         console.log(error);
         res.status(500).json({
