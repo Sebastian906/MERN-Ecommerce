@@ -6,11 +6,14 @@ import { LuBaby, LuChevronLeft, LuChevronRight, LuFlower, LuFootprints, LuShirt,
 import { Card, CardContent } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listarProductosFiltrados } from '@/store/shop/products-slice';
+import { listarDetalles, listarProductosFiltrados } from '@/store/shop/products-slice';
 import ShoppingProductTile from '@/components/shopping/product-tile';
 import { SiAdidas, SiHandm, SiNike, SiPuma, SiZara } from "react-icons/si";
 import { PiPants } from "react-icons/pi";
 import { useNavigate } from 'react-router-dom';
+import { agregarAlCarrito, listarProductosDelCarrito } from '@/store/shop/cart-slice';
+import { toast } from 'sonner';
+import ProductDetailsDialog from '@/components/shopping/product-details';
 
 const categoriasConIcono = [
     { id: "hombre", label: "Hombre", icon: LuShirt },
@@ -32,10 +35,14 @@ const marcasConIcono = [
 function ShoppingHome() {
 
     const [currentSlide, setCurrentSlide] = useState(0);
-    const { productList } = useSelector(state => state.tiendaProductos)
+    const { productList, productDetails } = useSelector(
+        (state) => state.tiendaProductos
+    );
+    const { usuario } = useSelector(state => state.auth);
     const ejecucion = useDispatch();
     const navigate = useNavigate();
     const slides = [bannerOne, bannerTwo, bannerThree];
+    const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
 
     function handleNavigateToListingPage(getCurrentItem, section) {
         sessionStorage.removeItem('filters');
@@ -44,6 +51,24 @@ function ShoppingHome() {
         }
         sessionStorage.setItem('filters', JSON.stringify(currentFilter));
         navigate('/tienda/lista')
+    }
+
+    function handleGetProductDetails(getCurrentProductId) {
+        ejecucion(listarDetalles(getCurrentProductId))
+    }
+
+    function handleAddtoCart(getCurrentProductId) {
+        const usuarioId = usuario?.id || usuario?._id;
+        ejecucion(agregarAlCarrito({
+            usuarioId,
+            productoId: getCurrentProductId,
+            cantidad: 1
+        })).then(data => {
+            if (data?.payload?.success) {
+                ejecucion(listarProductosDelCarrito(usuarioId));
+                toast.success("Producto agregado al carrito")
+            }
+        });
     }
 
     useEffect(() => {
@@ -62,10 +87,13 @@ function ShoppingHome() {
 
     console.log(productList, 'productList');
     
+    useEffect(() => {
+        if (productDetails !== null) setOpenDetailsDialog(true)
+    }, [productDetails]);
 
     return ( 
         <div className="flex flex-col min-h-screen bg-pink-100">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit exercitationem officia omnis error quaerat optio possimus accusantium quae accusamus libero saepe, sed hic asperiores assumenda aspernatur eum consectetur beatae architecto temporibus animi soluta eligendi enim mollitia. Minus rem laborum ex, quae dolore praesentium animi, consequatur odio sunt atque, ea dignissimos repudiandae perferendis perspiciatis error. Nobis perspiciatis reiciendis praesentium est ut.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit exercitationem officia omnis error quaerat optio possimus accusantium quae accusamus libero saepe, sed hic asperiores snsnsn
             <div className="relative w-full h-[600px] overflow-hidden">
                 {
                     slides.map((slide, index) => (
@@ -142,16 +170,23 @@ function ShoppingHome() {
                     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
                         {
                             productList && productList.length > 0 ?
-                            productList.map(productItem => 
+                            productList.map(productItem => (
                                 <ShoppingProductTile
+                                    handleGetProductDetails={handleGetProductDetails}
                                     producto={productItem}
+                                    handleAddtoCart={handleAddtoCart}
                                 />
-                            )
+                            ))
                             : null
                         }
                     </div>
                 </div>
             </section>
+            <ProductDetailsDialog
+                open={openDetailsDialog}
+                setOpen={setOpenDetailsDialog}
+                productDetails={productDetails}
+            />
         </div>
     );
 }

@@ -82,7 +82,6 @@ function ShoppingListing() {
 
     useEffect(() => {
         setSort('precio-menoramayor');
-        // Leer el filtro desde la URL
         const categoriaParam = searchParams.get('categoria');
         if (categoriaParam) {
             setFilters({ categoria: [categoriaParam] });
