@@ -31,7 +31,21 @@ const agregarCuenta = async(req, res) => {
 
 const listarCuentas = async(req, res) => {
     try {
-        
+        const { usuarioId } = req.params();
+        if (!usuarioId) {
+            return res.status(400).json({
+                success: false,
+                message: 'Se requiere el id del usuario'
+            });
+        }
+
+        const listaDeCuentas = await Cuenta.find({usuarioId});
+
+        res.status(200).json({
+            success: true,
+            data: listaDeCuentas,
+        });
+
     } catch (error) {
         console.log(error);
         res.status(500).json({
