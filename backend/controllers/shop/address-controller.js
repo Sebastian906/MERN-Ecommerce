@@ -79,7 +79,7 @@ const editarCuenta = async (req, res) => {
             });
         }
 
-        return res.status(200).json({
+        res.status(200).json({
             success: true,
             data: cuenta
         });
@@ -116,7 +116,7 @@ const eliminarCuenta = async (req, res) => {
             });
         }
 
-        return res.status(200).json({
+        res.status(200).json({
             success: true,
             message: 'Cuenta eliminada exitosamente'
         });
