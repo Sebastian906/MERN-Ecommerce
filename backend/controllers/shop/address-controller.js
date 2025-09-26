@@ -2,15 +2,15 @@ const Cuenta = require('../../models/Address')
 
 const agregarCuenta = async (req, res) => {
     try {
-        const { usuarioId, direccion, ciudad, codigopin, telefono, notas } = req.body;
-        if (!usuarioId || !direccion || !ciudad || !codigopin || !telefono || !notas) {
+    const { usuarioId, cuenta, ciudad, codigopin, telefono, notas } = req.body;
+    if (!usuarioId || !cuenta || !ciudad || !codigopin || !telefono || !notas) {
             return res.status(400).json({
                 success: false,
                 message: 'Datos inválidos!'
             })
         }
         const nuevaCuenta = new Cuenta({
-            usuarioId, direccion, ciudad, codigopin, telefono, notas
+            usuarioId, cuenta, ciudad, codigopin, telefono, notas
         })
 
         await nuevaCuenta.save();
@@ -31,7 +31,7 @@ const agregarCuenta = async (req, res) => {
 
 const listarCuentas = async (req, res) => {
     try {
-        const { usuarioId } = req.params();
+    const { usuarioId } = req.params;
         if (!usuarioId) {
             return res.status(400).json({
                 success: false,
