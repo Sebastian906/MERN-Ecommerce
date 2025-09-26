@@ -1,6 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useState } from 'react';
 import accImg from '../../assets/account.jpg'
+import Orders from '@/components/shopping/orders';
+import Address from '@/components/shopping/address';
 
 function ShoppingAccount() {
     const [activeTab, setActiveTab] = useState('ordenes');
@@ -25,10 +27,10 @@ function ShoppingAccount() {
                             </TabsTrigger>
                         </TabsList>
                         <TabsContent value="ordenes">
-                            Hola
+                            <Orders/>
                         </TabsContent>
                         <TabsContent value="cuenta">
-                            Mundo
+                            <Address/>
                         </TabsContent>
                     </Tabs>
                 </div>

@@ -163,20 +163,20 @@ export const filterOptions = {
 }
 
 export const categoryOptionsMap = {
-    'hombre' : 'Hombre',
-    'mujer' : 'Mujer',
-    'niños' : 'Niños',
-    'accesorios' : 'Accesorios',
-    'calzado' : 'Calzado'
+    'hombre': 'Hombre',
+    'mujer': 'Mujer',
+    'niños': 'Niños',
+    'accesorios': 'Accesorios',
+    'calzado': 'Calzado'
 }
 
 export const brandOptionsMap = {
-    'nike' : 'Nike',
-    'adidas' : 'Adidas',
-    'puma' : 'Puma',
-    'levi' : 'Levi',
-    'zara' : 'Zara',
-    'h&m' : 'H&M'
+    'nike': 'Nike',
+    'adidas': 'Adidas',
+    'puma': 'Puma',
+    'levi': 'Levi',
+    'zara': 'Zara',
+    'h&m': 'H&M'
 }
 
 export const sortOptions = [
@@ -184,4 +184,41 @@ export const sortOptions = [
     { id: "precio-mayoramenor", label: "Precio: Mayor a Menor" },
     { id: "titulo-az", label: "Título: De la A a la Z" },
     { id: "titulo-za", label: "Título: De la Z a la A" },
+];
+
+export const addressFormControls = [
+    {
+        label: "Cuenta",
+        name: "Cuenta",
+        componentType: "input",
+        type: "text",
+        placeholder: "Ingrese su cuenta",
+    },
+    {
+        label: "Ciudad",
+        name: "ciudad",
+        componentType: "input",
+        type: "text",
+        placeholder: "Ingrese su ciudad",
+    },
+    {
+        label: "Codigopin",
+        name: "codigopin",
+        componentType: "input",
+        type: "text",
+        placeholder: "Ingrese su código PIN",
+    },
+    {
+        label: "Teléfono",
+        name: "teléfono",
+        componentType: "input",
+        type: "text",
+        placeholder: "Ingrese su número telefónico",
+    },
+    {
+        label: "Notas",
+        name: "notas",
+        componentType: "textarea",
+        placeholder: "Ingrese notas adicionales",
+    },
 ];
