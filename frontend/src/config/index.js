@@ -189,7 +189,7 @@ export const sortOptions = [
 export const addressFormControls = [
     {
         label: "Cuenta",
-        name: "Cuenta",
+        name: "cuenta",
         componentType: "input",
         type: "text",
         placeholder: "Ingrese su cuenta",
@@ -202,7 +202,7 @@ export const addressFormControls = [
         placeholder: "Ingrese su ciudad",
     },
     {
-        label: "Codigopin",
+        label: "Codigo pin",
         name: "codigopin",
         componentType: "input",
         type: "text",
@@ -210,7 +210,7 @@ export const addressFormControls = [
     },
     {
         label: "Teléfono",
-        name: "teléfono",
+        name: "telefono",
         componentType: "input",
         type: "text",
         placeholder: "Ingrese su número telefónico",
